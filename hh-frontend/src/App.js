@@ -9,13 +9,31 @@ function App() {
     const [accountType, setAccountType] = useState(null);
     const [accountId, setAccountTId] = useState(null);
     const [signiInStatus, setSignInStatus] = useState(false);
+    const [data, setData] = useState("default");
 
-    return (
-        <div className="App">
-            <Navbar />
-            <TasksDisplay />
-        </div>
-    );
+    switch (signiInStatus) {
+        case "loggedInConsumer":
+            return (
+                <div className="App">
+                    <Navbar />
+                    <TasksDisplay />
+                </div>
+            );
+        case "loggedInProvider":
+            return (
+                <div className="App">
+                    <Navbar />
+                    <TasksDisplay />
+                </div>
+            );
+        case "notLoggedIn":
+            return (
+                <div className="App">
+                    <Navbar />
+                    <TasksDisplay />
+                </div>
+            );
+    }
 }
 
 export default App;
