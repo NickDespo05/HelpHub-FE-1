@@ -1,39 +1,24 @@
-import logo from "./logo.svg";
-import "./App.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 import TasksDisplay from "./components/TasksDisplay";
-import Navbar from "./components/Navbar";
+
 import React, { useState } from "react";
+import CurrentUserProvider from "./context/CurrentUser";
+import NavBar from "./components/Navbar";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
     const [accountType, setAccountType] = useState(null);
     const [accountId, setAccountTId] = useState(null);
-    const [signiInStatus, setSignInStatus] = useState(false);
+    const [signInStatus, setSignInStatus] = useState(false);
     const [data, setData] = useState("default");
 
-    switch (signiInStatus) {
-        case "loggedInConsumer":
-            return (
-                <div className="App">
-                    <Navbar />
-                    <TasksDisplay />
-                </div>
-            );
-        case "loggedInProvider":
-            return (
-                <div className="App">
-                    <Navbar />
-                    <TasksDisplay />
-                </div>
-            );
-        case "notLoggedIn":
-            return (
-                <div className="App">
-                    <Navbar />
-                    <TasksDisplay />
-                </div>
-            );
-    }
+    return (
+        <CurrentUserProvider>
+            <div className="App">
+                <NavBar />
+                <TasksDisplay />
+            </div>
+        </CurrentUserProvider>
+    );
 }
 
 export default App;
