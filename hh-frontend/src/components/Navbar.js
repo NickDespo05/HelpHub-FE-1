@@ -9,38 +9,13 @@ export default function Navbar(props) {
     const { setCurrentUser } = useContext(CurrentUser);
     const { currentUser } = useContext(CurrentUser);
     const [signInState, setSignInState] = useState();
-    const dummySignIn = async () => {
-        const response = await fetch(
-            `http://localhost:5050/memberAccounts/login`,
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    email: "chats@chat2.com",
-                    password: "Chat321",
-                }),
-            }
-        );
-        const data = await response.json();
-
-        if (response.status === 200) {
-            setCurrentUser(data.user);
-            localStorage.setItem("token", data.token);
-        } else {
-            console.log(response.message);
-        }
-    };
 
     useEffect(() => {
         const dynamicRender = () => {
             if (!currentUser) {
                 return (
                     <>
-                        <Button value="submit" onClick={dummySignIn}>
-                            Sign In
-                        </Button>
+                        <Nav.Link href="#">Sign In</Nav.Link>
                         <Nav.Link href="#">Sign Up</Nav.Link>
                     </>
                 );
