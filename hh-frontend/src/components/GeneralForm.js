@@ -3,7 +3,8 @@ import { Container, Form, Button } from "react-bootstrap";
 import { CurrentUser } from "../context/CurrentUser";
 
 export default function GeneralForm(props) {
-    const { setCurrentUser, currentUser } = useContext(CurrentUser);
+    const setCurrentUser = useContext(CurrentUser);
+    const currentUser = useContext(CurrentUser);
     const [infoSignIn, setInfoSignIn] = useState({
         email: "",
         password: "",
@@ -34,7 +35,8 @@ export default function GeneralForm(props) {
     });
 
     if (props.purpose === "sign in") {
-        const handleSignIn = async () => {
+        const handleSignIn = async (e) => {
+            e.preventDefault();
             const response = await fetch(
                 `http://localhost:5050/memberAccounts/login`,
                 {
@@ -46,9 +48,13 @@ export default function GeneralForm(props) {
                 }
             );
             const data = await response.json();
-            if (data.status == 200) {
+            if (response.status === 200) {
                 setCurrentUser(data.user);
-                console.log(data.user);
+                localStorage.setItem("token", data.token);
+                console.log(data.user, " working");
+                console.log(currentUser);
+            } else {
+                console.log(data);
             }
         };
         return (
@@ -81,7 +87,7 @@ export default function GeneralForm(props) {
                                 required
                                 name="password"
                                 value={infoSignIn.password}
-                                placeHolder="Enter your password"
+                                placeholder="Enter your password"
                                 onChange={(e) => {
                                     setInfoSignIn({
                                         ...infoSignIn,
@@ -90,7 +96,7 @@ export default function GeneralForm(props) {
                                 }}
                             />
                         </Form.Group>
-                        <Button variant="primary" value="submit">
+                        <Button variant="primary" type="submit">
                             Sign In
                         </Button>
                     </Form>
@@ -98,7 +104,9 @@ export default function GeneralForm(props) {
             </div>
         );
     } else if (props.purpose === "sign up") {
-        const handleSignUp = async () => {
+        const handleSignUp = async (e) => {
+            e.preventDefault();
+
             const response = await fetch(
                 `http://localhost:5050/memberAccounts`,
                 {
@@ -124,7 +132,7 @@ export default function GeneralForm(props) {
                                 required
                                 name="name"
                                 value={infoSignUp.name}
-                                placeHolder="Enter your Name"
+                                placeholder="Enter your Name"
                                 onChange={(e) => {
                                     setInfoSignUp({
                                         ...infoSignUp,
@@ -159,7 +167,7 @@ export default function GeneralForm(props) {
                                 required
                                 name="password"
                                 value={infoSignUp.password}
-                                placeHolder="Enter your password"
+                                placeholder="Enter your password"
                                 onChange={(e) => {
                                     setInfoSignUp({
                                         ...infoSignUp,
@@ -178,7 +186,7 @@ export default function GeneralForm(props) {
                                 required
                                 name="location"
                                 value={infoSignUp.location}
-                                placeHolder="Enter your Address"
+                                placeholder="Enter your Address"
                                 onChange={(e) => {
                                     setInfoSignUp({
                                         ...infoSignUp,
@@ -188,7 +196,7 @@ export default function GeneralForm(props) {
                             />
                         </Form.Group>
 
-                        <Button variant="primary" value="submit">
+                        <Button variant="primary" type="submit">
                             Sign Up
                         </Button>
                     </Form>
@@ -196,7 +204,9 @@ export default function GeneralForm(props) {
             </div>
         );
     } else if (props.purpose === "new job") {
-        const handleNewJob = async () => {
+        const handleNewJob = async (e) => {
+            e.preventDefault();
+
             const response = await fetch(`http://localhost:5050/jobs`, {
                 method: "POST",
                 headers: {
@@ -217,7 +227,7 @@ export default function GeneralForm(props) {
                             required
                             name="location"
                             value={newJob.name}
-                            placeHolder="Enter the job title..."
+                            placeholder="Enter the job title..."
                             onChange={(e) => {
                                 setNewJob({ ...newJob, name: e.target.value });
                             }}
@@ -230,7 +240,7 @@ export default function GeneralForm(props) {
                             required
                             name="location"
                             value={newJob.location}
-                            placeHolder="Enter the job title..."
+                            placeholder="Enter the job title..."
                             onChange={(e) => {
                                 setNewJob({
                                     ...newJob,
@@ -256,7 +266,7 @@ export default function GeneralForm(props) {
                             <option value="homeCleaning">Home Cleaning</option>
                         </Form.Select>
                     </Form.Group>
-                    <Button variant="primary" value="submit">
+                    <Button variant="primary" type="submit">
                         Post Job
                     </Button>
                 </Form>

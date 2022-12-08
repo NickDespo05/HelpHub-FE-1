@@ -1,28 +1,30 @@
 import React from "react";
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useContext } from "react";
 
 export const CurrentUser = createContext();
 
 function CurrentUserProvider({ children }) {
-    const [currentUser, setCurrentUser] = useState();
+    const [currentUser, setCurrentUser] = useState(null);
+
     useEffect(() => {
-        const getLoggedInUser = async () => {
-            const data = await fetch(
+        const getLogin = async () => {
+            let response = await fetch(
                 `http://localhost:5050/memberAccounts/memberAccount`,
                 {
-                    header: {
+                    headers: {
                         Authorization: `Bearer ${localStorage.getItem(
                             "token"
                         )}`,
                     },
                 }
             );
-            let user = await data.json();
-            setCurrentUser(user);
-            console.log(data, currentUser);
+
+            let data = await response.json();
+            setCurrentUser(data);
         };
-        getLoggedInUser();
+        getLogin();
     }, []);
+
     return (
         <CurrentUser.Provider value={{ currentUser, setCurrentUser }}>
             {children}

@@ -6,8 +6,7 @@ import { Button } from "react-bootstrap";
 import "../navbar.css";
 
 export default function Navbar(props) {
-    const { setCurrentUser } = useContext(CurrentUser);
-    const { currentUser } = useContext(CurrentUser);
+    const currentUser = useContext(CurrentUser);
     const [signInState, setSignInState] = useState();
 
     useEffect(() => {

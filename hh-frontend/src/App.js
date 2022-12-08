@@ -11,6 +11,7 @@ function App() {
         <CurrentUserProvider>
             <div className="App">
                 <NavBar />
+                <Chats />
             </div>
         </CurrentUserProvider>
     );
