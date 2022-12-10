@@ -2,72 +2,58 @@ import React, { useEffect, useContext, useState } from "react";
 import { CurrentUser } from "../context/CurrentUser";
 import { Card, Container } from "react-bootstrap";
 
-export default function Chats() {
-    const { currentUser } = useContext(CurrentUser);
-    const [renderedChats, setRenderedChats] = useState(null);
+function Chats() {
+    const currentUser = useContext(CurrentUser);
+    const [chats, setChats] = useState([]);
+    let children;
 
     useEffect(() => {
-        setRenderedChats(async () => {
-            if (!currentUser) {
-                console.log("here");
-                return (
-                    <div>
-                        {/* <Card>
+        const fetchChats = async () => {
+            const response = await fetch(
+                `http://localhost:5050/chats/account/${currentUser._id}`,
+                {
+                    method: "GET",
+                }
+            );
+            const data = await response.json();
+            console.log(data);
+
+            setChats(data);
+        };
+        fetchChats();
+    }, []);
+    console.log(chats);
+
+    if (chats === []) {
+        console.log("here 29");
+        return <h1>No Chats</h1>;
+    } else {
+        console.log("hello 32");
+        // console.log(chats[0].bothParties);
+        children = chats.map((chat, i) => {
+            return (
+                <div key={i}>
+                    <Container>
+                        <Card>
                             <Card.Body>
-                                <Card.Title>Please Login</Card.Title>
+                                <Card.Title>{chat.bothParties[0]}</Card.Title>
                                 <Card.Text>
-                                    Please login so you can view your account
-                                    chats, or sign up i you are new to HelpHub.
+                                    {chat.messages[0].message}
                                 </Card.Text>
                             </Card.Body>
-                        </Card> */}
-                        <h1>Damn</h1>
-                    </div>
-                );
-            } else {
-                const response = await fetch(
-                    `http://localhost:5050/chats/account/${currentUser._id}`
-                );
-                const data = await response.json();
-                const length = await data.messages.length;
-                if (response != null) {
-                    console.log("here 32");
-                    data.map((chat, i) => {
-                        return (
-                            <div key={i}>
-                                <Container>
-                                    <Card>
-                                        <Card.Title>
-                                            {chat.bothMembers[1]}
-                                        </Card.Title>
-                                        <Card.Text>
-                                            {chat.messages[length]}
-                                        </Card.Text>
-                                    </Card>
-                                </Container>
-                            </div>
-                        );
-                    });
-                } else {
-                    console.log("Here 48");
-                    return (
-                        <Container>
-                            <h1>No Chats yet!</h1>
-                            <p>
-                                start chatting with some people and the messages
-                                will show up here
-                            </p>
-                        </Container>
-                    );
-                }
-            }
+                        </Card>
+                    </Container>
+                </div>
+            );
         });
-    }, []);
+    }
 
     return (
         <div>
             <h1>Chats</h1>
-            {renderedChats}
+            <div>{children}</div>
         </div>
     );
 }
+
+export default Chats;
