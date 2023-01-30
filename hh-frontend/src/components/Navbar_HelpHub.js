@@ -6,7 +6,7 @@ import logo from "./helphub-logo.png";
 export default function NavbarHelpHub() {
     return (
         <div className="navbarContainer">
-            <Navbar bg="light" md="auto">
+            <Navbar bg="bg-*" md="auto">
                 <Container sm={8}>
                     <Navbar.Brand>
                         <img
@@ -17,17 +17,26 @@ export default function NavbarHelpHub() {
                         />
                     </Navbar.Brand>
                     <div className="navLinks">
-                        <Nav.Link href="/signup">Sign Up</Nav.Link>
+                        <Nav.Link href="/signUp">
+                            <p className="navLink">Sign Up</p>
+                        </Nav.Link>
                     </div>
+
                     <div className="navLinks">
                         {" "}
-                        <Nav.Link href="/signIn">Sign In</Nav.Link>
+                        <Nav.Link href="/signIn">
+                            <p className="navLink">Sign In</p>
+                        </Nav.Link>
                     </div>
                     <div className="navLinks">
-                        <Nav.Link href="/post">Post a Job</Nav.Link>
+                        <Nav.Link href="/postJob">
+                            <p className="navLink">Post a Job</p>
+                        </Nav.Link>
                     </div>
                     <div className="navLinks">
-                        <Nav.Link href="/search">Search</Nav.Link>
+                        <Nav.Link href="/search">
+                            <p className="navLink">Search</p>
+                        </Nav.Link>
                     </div>
                 </Container>
             </Navbar>

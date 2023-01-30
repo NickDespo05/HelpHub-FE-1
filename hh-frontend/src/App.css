@@ -50,3 +50,34 @@
     margin-bottom: 3vh;
     margin-top: 2vh;
 }
+.formContainer {
+    position: relative;
+    top: 3em;
+    left: 3.5em;
+    width: 70%;
+    align-items: center;
+}
+.Spacer {
+    height: 4vh;
+}
+.navLink {
+    color: blue;
+    text-decoration: underline;
+    padding-top: 1vh;
+}
+.Spacer2 {
+    height: 3vh;
+}
+#ageContainer {
+    width: 20%;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.jobPostForm {
+    width: 75%;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, -0%);
+}

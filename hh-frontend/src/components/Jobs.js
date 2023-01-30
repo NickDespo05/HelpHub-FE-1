@@ -37,15 +37,6 @@ export default function Jobs() {
         }
     };
 
-    const NewDisplay = () => {
-        const jobsDisplay = DisplayJobs();
-
-        for (let i = 0; i < jobsDisplay.length; i += 1) {
-            display.push(<Row sm={4}>{jobsDisplay[i]}</Row>);
-        }
-        return display;
-    };
-
     console.log(DisplayJobs());
 
     const fetchJobsCategory = async (category) => {
@@ -59,7 +50,7 @@ export default function Jobs() {
 
     return (
         <div className="jobsContainer">
-            <NewDisplay />
+            <DisplayJobs />
         </div>
     );
 }

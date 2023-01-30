@@ -1,7 +1,11 @@
 import logo from "./logo.svg";
 import "./App.css";
 import HomePage from "./pages/HomePage";
+import SignIn from "./pages/Sign_In";
+import SignUp from "./pages/Sign_Up";
+import JobPost from "./pages/JobPost";
 import { ThemeProvider } from "react-bootstrap";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
 
 function App() {
     return (
@@ -10,7 +14,14 @@ function App() {
             minBreakpoint="xxs"
         >
             <div className="App">
-                <HomePage />
+                <BrowserRouter>
+                    <Routes>
+                        <Route path="/" element={<HomePage />} />
+                        <Route path="/signIn" element={<SignIn />} />
+                        <Route path="/signUp" element={<SignUp />} />
+                        <Route path="/postJob" element={<JobPost />} />
+                    </Routes>
+                </BrowserRouter>
             </div>
         </ThemeProvider>
     );
