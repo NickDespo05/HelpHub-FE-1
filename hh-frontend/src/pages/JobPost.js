@@ -16,7 +16,6 @@ export default function JobPost() {
             <NavbarHelpHub />
             <div className="Spacer2"></div>
             <h1>Post a Job</h1>
-
             <div className="jobPostForm">
                 <Form>
                     <div className="Spacer"></div>

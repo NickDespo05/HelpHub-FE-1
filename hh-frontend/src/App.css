@@ -81,3 +81,12 @@
     left: 50%;
     transform: translate(-50%, -0%);
 }
+#searchBar {
+    display: inline-flex;
+    position: relative;
+    top: 4vh;
+}
+.searchDefault {
+    position: relative;
+    top: 6vh;
+}
