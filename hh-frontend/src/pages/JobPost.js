@@ -7,9 +7,17 @@ export default function JobPost() {
         category: "",
         postedBy: "Account",
         description: "",
-        location: ["PA", ""],
+        address: "",
         image: "",
+        state: "PA",
     });
+
+    const [location, setLocation] = useState("");
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log(info);
+    };
 
     return (
         <div>
@@ -17,7 +25,7 @@ export default function JobPost() {
             <div className="Spacer2"></div>
             <h1>Post a Job</h1>
             <div className="jobPostForm">
-                <Form>
+                <Form onSubmit={handleSubmit}>
                     <div className="Spacer"></div>
                     <Form.Group>
                         <Form.Label>Job Category</Form.Label>
@@ -55,12 +63,12 @@ export default function JobPost() {
                     <Form.Group>
                         <Form.Label>Location</Form.Label>
                         <Form.Control
-                            value={info.location[1]}
+                            value={info.address}
                             type="text"
                             onChange={(e) => {
                                 setInfo({
                                     ...info,
-                                    location: e.target.value,
+                                    address: e.target.value,
                                 });
                             }}
                         />
@@ -88,6 +96,7 @@ export default function JobPost() {
                         Post
                     </Button>
                 </Form>
+                +
             </div>
         </div>
     );
