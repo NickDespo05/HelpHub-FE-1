@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Form, Button, Col, Container, Card } from "react-bootstrap";
 import NavbarHelpHub from "../components/Navbar_HelpHub";
 import Jobs from "../components/Jobs";
+import { CurrentAccount } from "../context/CurrentAccount";
 
 export default function Search() {
     const [searchTerm, setSearchTerm] = useState("");
     const [searchData, setSearchData] = useState([]);
     const [searchParam, setSearchParam] = useState("");
-
+    const { currentUser } = useContext(CurrentAccount);
     const handleSearch = async () => {
         setSearchData(
             fetch(`http://localhost:5050/${searchTerm}/${searchParam}`)
@@ -35,13 +36,12 @@ export default function Search() {
     };
     return (
         <div>
-            <NavbarHelpHub />
             <Form onSubmit={handleSearch}>
                 <div id="searchBar">
                     <Form.Group>
                         <Form.Control
                             value={searchTerm}
-                            placeHolder="Search"
+                            placeholder="Search"
                             onChange={(e) => {
                                 setSearchTerm(e.target.value);
                             }}
@@ -55,9 +55,9 @@ export default function Search() {
                                 setSearchParam(e.target.value);
                             }}
                         >
-                            <Form.Label>Search By:</Form.Label>
-                            <option>Location</option>
-                            <option>Name</option>
+                            <option>Search By:</option>
+                            <option value="location">Location</option>
+                            <option value="name">Name</option>
                         </Form.Select>
                     </div>
                     <Button variant="light" value="submit">

@@ -3,13 +3,14 @@
     width: 75%;
     left: 12.5%;
     height: 3vh;
-    margin-top: 1em;
-    font-size: 1em;
-    bottom: 1vh;
 }
 .jobsDiv {
     display: inline-block;
     margin-top: 10%;
+    position: relative;
+    top: 90%;
+    left: 43%;
+    transform: translate(-50%);
 }
 @media (max-width: 800px) {
     .navbarContainer {
@@ -19,16 +20,59 @@
         margin-top: 1em;
     }
     #logoPic {
-        width: 150%;
-        padding: none;
-        margin: none;
+        width: 30%;
+
         position: relative;
-        right: 10%;
+        right: 20vw;
+        bottom: 5vh;
     }
     .navLinks {
-        display: inline;
         position: relative;
         right: 0%;
         width: 110%;
+    }
+    .loggedIn {
+        position: relative;
+        right: 55%;
+        bottom: 3vh;
+    }
+    .notLoggedIn {
+        position: relative;
+        right: 50%;
+        bottom: 3vh;
+    }
+    #signUpLink {
+        position: relative;
+        left: 6vw;
+    }
+    #signInLink {
+        position: relative;
+        left: 35vw;
+        bottom: 3em;
+    }
+    #postJobLink {
+        position: relative;
+        top: 0.6em;
+        right: -0.5em;
+    }
+    #searchLink {
+        position: relative;
+        bottom: 2.5em;
+        left: 6em;
+    }
+    #loggedInLink {
+        position: relative;
+        bottom: 5em;
+        left: 12em;
+    }
+    #userNameLink {
+        position: relative;
+        left: 40vw;
+        bottom: 3vh;
+    }
+    #viewRequestsLink {
+        position: relative;
+        left: 10vw;
+        top: 2vh;
     }
 }

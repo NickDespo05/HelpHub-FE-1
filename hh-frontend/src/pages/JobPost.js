@@ -1,27 +1,88 @@
-import React, { useState } from "react";
+import { CurrentAccount } from "../context/CurrentAccount";
+import React, { useState, useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 import NavbarHelpHub from "../components/Navbar_HelpHub";
 
 export default function JobPost() {
+    const { currentUser } = useContext(CurrentAccount);
     const [info, setInfo] = useState({
         category: "",
-        postedBy: "Account",
+        postedBy: "",
         description: "",
         address: "",
         image: "",
-        state: "PA",
+        state: "",
+        price: 20,
+    });
+    const navigate = useNavigate();
+
+    const [postedJobs, setPostedJobs] = useState({
+        completedJob: "",
     });
 
-    const [location, setLocation] = useState("");
+    useEffect(() => {
+        const setUp = () => {
+            console.log(info);
 
-    const handleSubmit = (e) => {
+            console.log(currentUser);
+
+            console.log(info.state, info.postedBy);
+        };
+        setUp();
+    }, []);
+
+    const handleStatus = (res) => {
+        if (res.status !== 200) {
+            console.log("#2");
+            handleSubmit();
+        }
+    };
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(info);
+        try {
+            setInfo({
+                ...info,
+            });
+            console.log(info);
+            const response = await fetch(`http://localhost:5050/jobs`, {
+                method: `POST`,
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(info),
+            });
+            console.log("56");
+            console.log(response);
+
+            handleStatus(response);
+
+            const data = await response.json();
+            console.log(data._id, " : data id");
+            setPostedJobs({ ...postedJobs, completedJob: data._id });
+            const response2 = await fetch(
+                `http://localhost:5050/memberAccounts/addJob/${currentUser._id}`,
+                {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(postedJobs),
+                }
+            );
+            const data2 = await response2.json();
+            setInfo(data);
+            console.log(data, " data");
+            console.log(data2, " data2");
+            navigate("/");
+        } catch (err) {
+            console.log(err);
+        }
     };
 
     return (
         <div>
-            <NavbarHelpHub />
             <div className="Spacer2"></div>
             <h1>Post a Job</h1>
             <div className="jobPostForm">
@@ -35,14 +96,17 @@ export default function JobPost() {
                                 setInfo({
                                     ...info,
                                     category: e.target.value,
+                                    state: currentUser.location,
+                                    postedBy: currentUser._id,
                                 });
                             }}
                         >
-                            <option>Landscaping</option>
-                            <option>Home Cleaning</option>
-                            <option>Pet Care</option>
-                            <option>Moving Help</option>
-                            <option>Miscellaneous</option>
+                            <option>Select a Category</option>
+                            <option value="landscaping">Landscaping</option>
+                            <option value="homeCleaning">Home Cleaning</option>
+                            <option value="petCare">Pet Care</option>
+                            <option value="movingHelp">Moving Help</option>
+                            <option value="miscellaneous">Miscellaneous</option>
                         </Form.Select>
                     </Form.Group>
                     <div className="Spacer"></div>
@@ -75,6 +139,27 @@ export default function JobPost() {
                         <Form.Text>The specific address of the Job.</Form.Text>
                     </Form.Group>
                     <div className="Spacer"></div>
+                    <div id="priceInput">
+                        <Form.Group>
+                            <div id="priceLabel">
+                                <Form.Label>Price</Form.Label>
+                            </div>
+                            <p id="dolla">$</p>
+                            <div id="priceControl">
+                                <Form.Control
+                                    type="number"
+                                    size="sm"
+                                    onChange={(e) => {
+                                        setInfo({
+                                            ...info,
+                                            price: e.target.value,
+                                        });
+                                    }}
+                                    value={info.price}
+                                />
+                            </div>
+                        </Form.Group>
+                    </div>
                     <Form.Group>
                         <Form.Label>Description</Form.Label>
                         <Form.Control
@@ -91,12 +176,13 @@ export default function JobPost() {
                             }}
                         />
                     </Form.Group>
+
                     <div className="Spacer"></div>
-                    <Button value="submit" type="submit">
+                    <Button variant="primary" type="submit">
                         Post
                     </Button>
+                    <div></div>
                 </Form>
-                +
             </div>
         </div>
     );

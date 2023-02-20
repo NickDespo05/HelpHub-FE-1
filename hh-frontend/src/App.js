@@ -5,9 +5,12 @@ import SignIn from "./pages/Sign_In";
 import SignUp from "./pages/Sign_Up";
 import JobPost from "./pages/JobPost";
 import Search from "./pages/Search";
+import Profile from "./pages/Profile";
 import CurrentAccountProvider from "./context/CurrentAccount";
 import { ThemeProvider } from "react-bootstrap";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
+import NavbarHelpHub from "./components/Navbar_HelpHub";
+import EditProfile from "./pages/EditProfile";
 
 function App() {
     return (
@@ -26,6 +29,7 @@ function App() {
                 minBreakpoint="xxs"
             >
                 <div className="App">
+                    <NavbarHelpHub />
                     <BrowserRouter>
                         <Routes>
                             <Route path="/" element={<HomePage />} />
@@ -33,6 +37,11 @@ function App() {
                             <Route path="/signUp" element={<SignUp />} />
                             <Route path="/postJob" element={<JobPost />} />
                             <Route path="/search" element={<Search />} />
+                            <Route path="/profile" element={<Profile />} />
+                            <Route
+                                path="/editProfile"
+                                element={<EditProfile />}
+                            />
                         </Routes>
                     </BrowserRouter>
                 </div>
@@ -42,8 +51,3 @@ function App() {
 }
 
 export default App;
-/**
- * @TODO
- * I need to work on the sign in and conditional Rendering along with
- * connecting the app to the backend
- */

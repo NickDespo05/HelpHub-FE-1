@@ -13,8 +13,6 @@ export default function SignUp() {
         location: "",
     });
 
-    const [selectedState, setSelectedState] = useState("");
-
     const states = [
         "AL",
         "AK",
@@ -69,12 +67,14 @@ export default function SignUp() {
     ];
 
     const stateSelections = states.map((stateCode, i) => {
-        return <option key={i}>{stateCode}</option>;
+        return (
+            <option value={stateCode} key={i}>
+                {stateCode}
+            </option>
+        );
     });
 
-    const handleChange = (e, infoPiece) => {
-        setInfo({ ...info, infoPiece: e.target.value });
-    };
+  
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -83,7 +83,6 @@ export default function SignUp() {
 
     return (
         <div>
-            <NavbarHelpHub />
             <div className="formContainer">
                 <h1>Sign Up</h1>
                 <div className="Spacer2"></div>

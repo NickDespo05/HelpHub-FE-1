@@ -10,7 +10,7 @@ export default function Sign_In() {
         email: "",
         password: "",
     });
-    const { setCurrent } = useContext(CurrentAccount);
+    const { setCurrentUser } = useContext(CurrentAccount);
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -27,9 +27,9 @@ export default function Sign_In() {
         const data = await response.json();
 
         if (response.status == 200) {
-            setCurrent(data.user);
+            setCurrentUser(data.user);
             console.log(data.user);
-            localStorage.getItem("token");
+            localStorage.setItem("token", data.token);
             navigate("/");
         } else {
             console.log(data.message);
@@ -38,7 +38,6 @@ export default function Sign_In() {
 
     return (
         <div>
-            <NavbarHelpHub />
             <div className="formContainer">
                 <Form md="auto" onSubmit={handleLogin}>
                     <Form.Group className="mb-3">
