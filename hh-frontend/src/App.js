@@ -11,6 +11,7 @@ import { ThemeProvider } from "react-bootstrap";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import NavbarHelpHub from "./components/Navbar_HelpHub";
 import EditProfile from "./pages/EditProfile";
+import ProviderRequests from "./pages/ProviderRequests";
 
 function App() {
     return (
@@ -41,6 +42,10 @@ function App() {
                             <Route
                                 path="/editProfile"
                                 element={<EditProfile />}
+                            />
+                            <Route
+                                path="/providerRequests"
+                                element={<ProviderRequests />}
                             />
                         </Routes>
                     </BrowserRouter>

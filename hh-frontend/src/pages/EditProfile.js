@@ -1,5 +1,5 @@
-import React from "react";
-import { Form, Container } from "react-bootstrap";
+import React, { useState, useContext, useEffect } from "react";
+import { Form, Container, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { CurrentAccount } from "../context/CurrentAccount";
 
@@ -9,6 +9,7 @@ export default function EditProfile() {
         name: "",
         email: "",
         password: "",
+        newPassword: "",
         location: "",
         age: 0,
         accountType: "",
@@ -66,6 +67,21 @@ export default function EditProfile() {
         "WY",
     ];
 
+    useEffect(() => {
+        if (currentUser != undefined) {
+            setInfo({
+                ...info,
+                name: currentUser.name,
+                email: currentUser.email,
+
+                location: currentUser.location,
+                age: currentUser.age,
+                accountType: currentUser.accountType,
+            });
+        } else {
+        }
+    }, [currentUser]);
+
     const stateSelections = states.map((stateCode, i) => {
         return (
             <option value={stateCode} key={i}>
@@ -74,25 +90,47 @@ export default function EditProfile() {
         );
     });
 
+    const checkStatus = async (res) => {
+        if (res.status != 200) {
+            return (
+                <div>
+                    <h3>Wrong password</h3>
+                </div>
+            );
+        } else {
+            const data = await res.json();
+            setCurrentUser(data);
+            console.log(data);
+        }
+    };
+
     const handleSubmit = async (e) => {
+        e.preventDefault();
         const response = await fetch(
-            `http://localhost:5050/memberAccounts/${currentUser._id}`,
+            `http://localhost:5050/memberAccounts/${currentUser._id}/`,
             {
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
+                method: `PUT`,
+                headers: {
+                    "Content-Type": "application/json",
+                },
                 body: JSON.stringify(info),
             }
         );
-        const data = await response.json();
-        setCurrentUser(data);
-        console.log(data);
+        console.log(response);
+        checkStatus(response);
     };
 
     return (
         <div className="formContainer">
             <h1>Edit Profile</h1>
+            <p>Enter what you want to change about your profile: </p>
             <div className="Spacer2"></div>
-            <Form md="auto" onSubmit={handleSubmit}>
+            <Form
+                md="auto"
+                onSubmit={(e) => {
+                    handleSubmit(e);
+                }}
+            >
                 <Form.Group>
                     <Form.Label>Name</Form.Label>
                     <Form.Control
@@ -127,9 +165,20 @@ export default function EditProfile() {
                     <Form.Control
                         type="password"
                         value={info.password}
-                        placeholder="Password"
+                        placeholder="Required to change information"
                         onChange={(e) =>
                             setInfo({ ...info, password: e.target.value })
+                        }
+                    />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formBasicPassword">
+                    <Form.Label>New Password</Form.Label>
+                    <Form.Control
+                        type="password"
+                        value={info.newPassword}
+                        placeholder="New Password"
+                        onChange={(e) =>
+                            setInfo({ ...info, newPassword: e.target.value })
                         }
                     />
                 </Form.Group>

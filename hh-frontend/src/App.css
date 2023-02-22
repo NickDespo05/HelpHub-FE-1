@@ -39,14 +39,13 @@
 
 .jobsContainer {
     position: relative;
-
-    left: 20%;
+    left: -2vw;
     margin-bottom: 3vh;
     margin-top: 2vh;
     display: block;
 }
 .job {
-    width: 75%;
+    width: 75vw;
     margin-bottom: 3vh;
     margin-top: 2vh;
 }
@@ -99,8 +98,8 @@
 }
 .categorySelect {
     position: relative;
-    left: 35%;
-    top: -4vh;
+    left: 35vw;
+    top: -2vh;
     width: 50%;
     transform: translate(-50%, -0%);
 }
@@ -160,4 +159,8 @@
 .profileCard {
     position: relative;
     top: 15vh;
+}
+#editProfileButton {
+    position: relative;
+    top: 20vh;
 }

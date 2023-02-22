@@ -30,7 +30,10 @@ export default function NavbarHelpHub() {
                 return (
                     <div className="loggedIn">
                         <div className="navLinks">
-                            <Nav.Link id="viewRequestsLink">
+                            <Nav.Link
+                                id="viewRequestsLink"
+                                href="/providerRequests"
+                            >
                                 <p className="navLink">View Requests</p>
                             </Nav.Link>
                         </div>
@@ -73,8 +76,8 @@ export default function NavbarHelpHub() {
         <div className="navbarContainer">
             <Navbar bg="bg-*" md="auto">
                 <Container sm={8}>
-                    <Navbar.Brand>
-                        <img src={logo} alt="HelpHub" id="logoPic" />
+                    <Navbar.Brand href="/">
+                        <img src={logo} alt="HelpHub" id="logoPic" href="/" />
                     </Navbar.Brand>
                     <UserRender />
                 </Container>

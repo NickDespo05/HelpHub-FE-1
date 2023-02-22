@@ -26,6 +26,7 @@ export default function Jobs() {
     };
 
     const handleProviderRequest = (e, id) => {
+        let request = id;
         e.preventDefault();
         setProvider({ providerId: currentUser._id });
         fetch(`http://localhost:5050/jobs/${id}`, {
@@ -35,6 +36,38 @@ export default function Jobs() {
             },
             body: JSON.stringify({ providerId: currentUser._id }),
         });
+        console.log(id);
+        fetch(
+            `http://localhost:5050/memberAccounts/addRequest/${currentUser._id}`,
+            {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ jobRequest: request }),
+            }
+        );
+    };
+
+    const HandleName = (props) => {
+        switch (props.job.category) {
+            case "petCare":
+                return <Card.Title>Pet Care</Card.Title>;
+
+            case "landscaping":
+                return <Card.Title>Landscaping</Card.Title>;
+
+            case "movingHelp":
+                return <Card.Title>Help Moving</Card.Title>;
+
+            case "miscellaneous":
+                return <Card.Title>Misc</Card.Title>;
+
+            case "homeCleaning":
+                return <Card.Title>Home Cleaning</Card.Title>;
+            default:
+                return <Card.Title>Error in Name/Category</Card.Title>;
+        }
     };
 
     const CategoryFetch = () => {
@@ -71,7 +104,7 @@ export default function Jobs() {
                     <div className="job">
                         <Container md="auto" sm={8}>
                             <Card>
-                                <Card.Title>{job.category}</Card.Title>
+                                <HandleName job={job} />
                                 <Card.Text>{job.description}</Card.Text>
                                 <Button
                                     onClick={(e) => {

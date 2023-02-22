@@ -2,7 +2,7 @@ import { CurrentAccount } from "../context/CurrentAccount";
 import React, { useEffect, useContext, useState } from "react";
 import { Card, Container, Button } from "react-bootstrap";
 
-export default function CurrentUSerJobs(props) {
+export default function CurrentUserJobs(props) {
     const { currentUser } = useContext(CurrentAccount);
     const [userJobs, setUserJobs] = useState([]);
     useEffect(() => {

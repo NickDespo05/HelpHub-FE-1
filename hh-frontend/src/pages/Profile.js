@@ -18,7 +18,7 @@ export default function Profile() {
     const [info, setInfo] = useState({});
     const navigate = useNavigate();
     const [edit, setEdit] = useState(currentUser);
-    const [editing, setEditing] = useState(false)
+    const [editing, setEditing] = useState(false);
 
     useEffect(() => {
         console.log(currentUser);
@@ -117,6 +117,9 @@ export default function Profile() {
             <Render />
             <div className="Spacer"></div>
 
+            <Button id="editProfileButton" href="/editProfile">
+                Edit Profile
+            </Button>
             <Button
                 id="logoutButton"
                 variant="danger"

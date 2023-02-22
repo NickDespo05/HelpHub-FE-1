@@ -20,10 +20,9 @@
         margin-top: 1em;
     }
     #logoPic {
-        width: 30%;
-
+        width: 40%;
         position: relative;
-        right: 20vw;
+        right: 15vw;
         bottom: 5vh;
     }
     .navLinks {
@@ -33,7 +32,7 @@
     }
     .loggedIn {
         position: relative;
-        right: 55%;
+        right: 45vw;
         bottom: 3vh;
     }
     .notLoggedIn {
