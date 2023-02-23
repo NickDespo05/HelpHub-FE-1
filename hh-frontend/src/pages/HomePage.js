@@ -5,13 +5,19 @@ import CurrentUserJobs from "../components/CurrentUserJobs";
 
 export default function HomePage() {
     const { currentUser } = useContext(CurrentAccount);
+    const [display, setDisplay] = useState("");
     useEffect(() => {
-        console.log(currentUser);
-    }, []);
+        if (currentUser == undefined && currentUser != "") {
+            HandleDisplay();
+        } else {
+            HandleDisplay();
+        }
+        console.log(display);
+    }, [currentUser]);
 
     const HandleDisplay = () => {
-        if (currentUser === undefined) {
-            return (
+        if (currentUser == undefined || currentUser == "") {
+            setDisplay(
                 <div className="loginMessage">
                     <h1>
                         Welcome to HelpHub! Please Login or Sign up using the
@@ -21,13 +27,13 @@ export default function HomePage() {
             );
         } else {
             if (currentUser.accountType == "provider") {
-                return (
+                setDisplay(
                     <div>
                         <Jobs />
                     </div>
                 );
             } else {
-                return (
+                setDisplay(
                     <div>
                         <CurrentUserJobs />
                     </div>
@@ -37,9 +43,7 @@ export default function HomePage() {
     };
     return (
         <div>
-            <div className="jobsDiv">
-                <HandleDisplay />
-            </div>
+            <div className="jobsDiv">{display}</div>
         </div>
     );
 }

@@ -1,16 +1,26 @@
 import React from "react";
+import { CurrentAccount } from "../context/CurrentAccount";
 import { Form, Button } from "react-bootstrap";
 import NavbarHelpHub from "../components/Navbar_HelpHub";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function SignUp() {
+    const navigate = useNavigate();
+    const { currentUser, setCurrentUser } = useContext(CurrentAccount);
+
     const [info, setInfo] = useState({
         name: "",
         email: "",
         password: "",
-        type: "",
+        accountType: "",
         age: "",
         location: "",
+    });
+
+    const [loginInfo, setLoginInfo] = useState({
+        email: info.email,
+        password: info.password,
     });
 
     const states = [
@@ -74,11 +84,43 @@ export default function SignUp() {
         );
     });
 
-  
-
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(info);
+        await fetch(`http://localhost:5050/memberAccounts/`, {
+            method: `POST`,
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(info),
+        });
+
+        setLoginInfo({
+            ...loginInfo,
+            email: info.email,
+            password: info.password,
+        });
+        console.log(loginInfo);
+        const loginRes = await fetch(
+            `http://localhost:5050/memberAccounts/login`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(loginInfo),
+            }
+        );
+        const loginData = await loginRes.json();
+
+        if (loginRes.status == 200) {
+            setCurrentUser(loginData.user);
+            console.log(loginData.user);
+            localStorage.setItem("token", loginData.token);
+            navigate("/");
+        } else {
+            console.log(loginData.message);
+        }
+        navigate("/");
     };
 
     return (
@@ -156,8 +198,8 @@ export default function SignUp() {
                                 })
                             }
                         >
-                            <option>Provider</option>
-                            <option>Consumer</option>
+                            <option value="provider">Provider</option>
+                            <option value="consumer">Consumer</option>
                         </Form.Select>
                     </Form.Group>
                     <div className="Spacer"></div>
