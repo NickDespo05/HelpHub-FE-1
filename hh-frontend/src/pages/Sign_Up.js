@@ -18,6 +18,8 @@ export default function SignUp() {
         location: "",
     });
 
+    const [error, setError] = useState("");
+
     const [loginInfo, setLoginInfo] = useState({
         email: info.email,
         password: info.password,
@@ -84,43 +86,56 @@ export default function SignUp() {
         );
     });
 
+    const handleError = async (res) => {
+        if (res.status == 400) {
+            setError("Must have one Capital Letter ");
+            console.log("here");
+        } else {
+            setLoginInfo({
+                ...loginInfo,
+                email: info.email,
+                password: info.password,
+            });
+            console.log(loginInfo);
+            const loginRes = await fetch(
+                `http://localhost:5050/memberAccounts/login`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(loginInfo),
+                }
+            );
+            const loginData = await loginRes.json();
+
+            if (loginRes.status == 200) {
+                setCurrentUser(loginData.user);
+                console.log(loginData.user);
+                localStorage.setItem("token", loginData.token);
+                navigate("/");
+            } else {
+                console.log(loginData.message);
+            }
+            navigate("/");
+        }
+    };
+
+    const ErrorMessage = (props) => {
+        return <Form.Text className="text-muted">{props.message}</Form.Text>;
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await fetch(`http://localhost:5050/memberAccounts/`, {
+        const response = await fetch(`http://localhost:5050/memberAccounts/`, {
             method: `POST`,
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(info),
         });
-
-        setLoginInfo({
-            ...loginInfo,
-            email: info.email,
-            password: info.password,
-        });
-        console.log(loginInfo);
-        const loginRes = await fetch(
-            `http://localhost:5050/memberAccounts/login`,
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(loginInfo),
-            }
-        );
-        const loginData = await loginRes.json();
-
-        if (loginRes.status == 200) {
-            setCurrentUser(loginData.user);
-            console.log(loginData.user);
-            localStorage.setItem("token", loginData.token);
-            navigate("/");
-        } else {
-            console.log(loginData.message);
-        }
-        navigate("/");
+        console.log(response);
+        handleError(response);
     };
 
     return (
@@ -169,6 +184,7 @@ export default function SignUp() {
                             }
                         />
                     </Form.Group>
+                    <ErrorMessage message={error} />
                     <div className="Spacer"></div>
 
                     <Form.Group>

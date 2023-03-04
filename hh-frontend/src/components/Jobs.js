@@ -28,7 +28,7 @@ export default function Jobs() {
     const handleProviderRequest = (e, id) => {
         let request = id;
         e.preventDefault();
-        setProvider({ providerId: currentUser._id });
+
         fetch(`http://localhost:5050/jobs/${id}`, {
             method: "PUT",
             headers: {

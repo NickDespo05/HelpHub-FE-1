@@ -164,3 +164,18 @@
     position: relative;
     top: 20vh;
 }
+.noRequests {
+    position: relative;
+    top: 20vh;
+}
+
+#providerJobReqs {
+    position: relative;
+    top: 7vh;
+    left: 12vw;
+}
+#requestedJobsTitle {
+    position: relative;
+    bottom: 2vh;
+    right: 11vw;
+}
