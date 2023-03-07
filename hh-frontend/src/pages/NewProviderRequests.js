@@ -77,6 +77,7 @@ export default function NewProviderRequests() {
                 <Container>
                     <Nav md="auto" className="justify-content-center">
                         <ListGroup.Item>Posted</ListGroup.Item>
+                        <div className="sideSpace"></div>
                         <Button
                             variant="danger"
                             onClick={(e) => {

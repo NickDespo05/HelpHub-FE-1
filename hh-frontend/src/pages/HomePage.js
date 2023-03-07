@@ -2,6 +2,7 @@ import { CurrentAccount } from "../context/CurrentAccount";
 import React, { useEffect, useState, useContext } from "react";
 import Jobs from "../components/Jobs";
 import CurrentUserJobs from "../components/CurrentUserJobs";
+import PostedJobs from "../components/PostedJobs";
 
 export default function HomePage() {
     const { currentUser } = useContext(CurrentAccount);

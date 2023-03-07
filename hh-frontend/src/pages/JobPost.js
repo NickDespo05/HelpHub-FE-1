@@ -60,7 +60,7 @@ export default function JobPost() {
 
             const data = await response.json();
             console.log(data._id, " : data id");
-            setPostedJobs({ ...postedJobs, completedJob: data._id });
+            setPostedJobs({ completedJob: data._id });
             const response2 = await fetch(
                 `http://localhost:5050/memberAccounts/addJob/${currentUser._id}`,
                 {
@@ -68,14 +68,14 @@ export default function JobPost() {
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify(postedJobs),
+                    body: JSON.stringify({completedJob: data._id}),
                 }
             );
             const data2 = await response2.json();
             setInfo(data);
             console.log(data, " data");
             console.log(data2, " data2");
-            navigate("/");
+            // navigate("/");
         } catch (err) {
             console.log(err);
         }

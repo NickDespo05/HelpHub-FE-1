@@ -11,10 +11,9 @@ export default function PostedJobs() {
             const response = await fetch(
                 `http://localhost:5050/jobs/${currentUser.postedJobs[i]}`
             );
-
-            arr.push(await response.json());
+            const data = await response.json();
+            setJobs(data);
         }
-        setJobs(arr);
     };
 
     useEffect(() => {
@@ -26,7 +25,7 @@ export default function PostedJobs() {
 
     const HandleRender = () => {
         if (currentUser != null) {
-            if (currentUser.postedJobs.length > 0) {
+            if (currentUser.postedJobs > 0) {
                 return jobs.map((job, i) => (
                     <div className="postedJobsProfile" key={i}>
                         <a>
@@ -38,7 +37,7 @@ export default function PostedJobs() {
             } else {
                 return (
                     <div>
-                        <h1>
+                        <h1 id="noPostedJobs">
                             Your posted Jobs will be shown here. Post a job to
                             get started!
                         </h1>

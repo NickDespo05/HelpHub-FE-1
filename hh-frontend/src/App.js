@@ -11,7 +11,6 @@ import { ThemeProvider } from "react-bootstrap";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import NavbarHelpHub from "./components/Navbar_HelpHub";
 import EditProfile from "./pages/EditProfile";
-import ProviderRequests from "./pages/ProviderRequests";
 import NewProviderRequests from "./pages/NewProviderRequests";
 
 function App() {

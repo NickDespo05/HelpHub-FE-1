@@ -22,7 +22,7 @@
     #logoPic {
         width: 40%;
         position: relative;
-        right: 15vw;
+        right: 18vw;
         bottom: 5vh;
     }
     .navLinks {
@@ -37,8 +37,8 @@
     }
     .notLoggedIn {
         position: relative;
-        right: 50%;
-        bottom: 3vh;
+        right: 45vw;
+        bottom: 2vh;
     }
     #signUpLink {
         position: relative;

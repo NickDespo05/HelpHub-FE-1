@@ -16,6 +16,9 @@ export default function SignUp() {
         accountType: "",
         age: "",
         location: "",
+        postedJobs: [],
+        jobsCompleted: [],
+        requests: [],
     });
 
     const [error, setError] = useState("");
@@ -92,7 +95,6 @@ export default function SignUp() {
             console.log("here");
         } else {
             setLoginInfo({
-                ...loginInfo,
                 email: info.email,
                 password: info.password,
             });
@@ -127,15 +129,52 @@ export default function SignUp() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const response = await fetch(`http://localhost:5050/memberAccounts/`, {
-            method: `POST`,
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(info),
-        });
-        console.log(response);
-        handleError(response);
+
+        if (info.accountType == "consumer") {
+            const response = await fetch(
+                `http://localhost:5050/memberAccounts/`,
+                {
+                    method: `POST`,
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        name: info.name,
+                        email: info.email,
+                        password: info.password,
+                        accountType: info.accountType,
+                        age: info.age,
+                        location: info.location,
+                        postedJobs: info.postedJobs,
+                        jobsCompleted: info.jobsCompleted,
+                    }),
+                }
+            );
+            console.log(response);
+            handleError(response);
+        } else if (info.accountType == "provider") {
+            const response = await fetch(
+                `http://localhost:5050/memberAccounts/`,
+                {
+                    method: `POST`,
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        name: info.name,
+                        email: info.email,
+                        password: info.password,
+                        accountType: info.accountType,
+                        age: info.age,
+                        location: info.location,
+                        requests: info.requests,
+                        jobsCompleted: info.jobsCompleted,
+                    }),
+                }
+            );
+            console.log(response);
+            handleError(response);
+        }
     };
 
     return (
@@ -143,7 +182,12 @@ export default function SignUp() {
             <div className="formContainer">
                 <h1>Sign Up</h1>
                 <div className="Spacer2"></div>
-                <Form md="auto" onSubmit={handleSubmit}>
+                <Form
+                    md="auto"
+                    onSubmit={(e) => {
+                        handleSubmit(e);
+                    }}
+                >
                     <Form.Group>
                         <Form.Label>Name</Form.Label>
                         <Form.Control

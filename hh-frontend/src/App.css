@@ -179,3 +179,17 @@
     bottom: 2vh;
     right: 11vw;
 }
+.sideSpace {
+    position: relative;
+    width: 5vw;
+}
+#noJobs {
+    position: relative;
+    top: 25vh;
+    width: 75%;
+    left: 20vw;
+}
+#noPostedJobs {
+    position: relative;
+    top: 10vh;
+}
