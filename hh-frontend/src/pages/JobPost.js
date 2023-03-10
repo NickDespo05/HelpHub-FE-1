@@ -68,14 +68,14 @@ export default function JobPost() {
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify({completedJob: data._id}),
+                    body: JSON.stringify({ completedJob: data._id }),
                 }
             );
             const data2 = await response2.json();
             setInfo(data);
             console.log(data, " data");
             console.log(data2, " data2");
-            // navigate("/");
+            navigate("/");
         } catch (err) {
             console.log(err);
         }

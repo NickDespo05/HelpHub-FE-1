@@ -12,6 +12,7 @@ import {
 import NavbarHelpHub from "../components/Navbar_HelpHub";
 import PostedJobs from "../components/PostedJobs";
 import { useNavigate } from "react-router-dom";
+import CurrentUserJobs from "../components/CurrentUserJobs";
 
 export default function Profile() {
     const { currentUser, setCurrentUser } = useContext(CurrentAccount);
@@ -105,7 +106,9 @@ export default function Profile() {
                                 </Card>
                             </div>
                         </Container>
-                        <PostedJobs />
+                        <div id="profileJobs">
+                            <CurrentUserJobs />
+                        </div>
                     </div>
                 );
             }
@@ -113,7 +116,7 @@ export default function Profile() {
     };
 
     return (
-        <div>
+        <div id="profileDiv">
             <Render />
             <div className="Spacer"></div>
 

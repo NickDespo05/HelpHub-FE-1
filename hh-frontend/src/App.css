@@ -193,3 +193,27 @@
     position: relative;
     top: 10vh;
 }
+.postedTag {
+    font-size: 1.2em;
+
+    height: 0em;
+}
+.smallCategory {
+    position: relative;
+    top: 1vh;
+    left: 2vw;
+}
+#profileJobs {
+    position: relative;
+    top: 20vh;
+    left: 15vw;
+}
+#consumerJobsTitle {
+    position: relative;
+    right: 11vw;
+}
+#profileDiv {
+    position: relative;
+    bottom: 10vh;
+    z-index: -999;
+}

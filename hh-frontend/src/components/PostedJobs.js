@@ -6,7 +6,6 @@ export default function PostedJobs() {
     const { currentUser } = useContext(CurrentAccount);
     const [jobs, setJobs] = useState([]);
     const postedJobs = async () => {
-        const arr = [];
         for (let i = 0; i < currentUser.postedJobs.length; i++) {
             const response = await fetch(
                 `http://localhost:5050/jobs/${currentUser.postedJobs[i]}`
