@@ -14,30 +14,32 @@
 }
 @media (max-width: 800px) {
     .navbarContainer {
-        left: 0;
-        width: 100%;
+        left: 05vw;
+        width: 90vw;
         height: 3vh;
         margin-top: 1em;
+        margin-left: 5vw;
     }
-    #logoPic {
+    .logoPic {
         width: 40%;
         position: relative;
-        right: 18vw;
-        bottom: 8vh;
+        right: 0vw;
+        bottom: 0vh;
     }
     .navLinks {
         position: relative;
-        right: 0%;
+        right: -3vw;
         width: 110%;
+        bottom: 5vh;
     }
     .loggedIn {
         position: relative;
-        right: 45vw;
+        right: 7vw;
         bottom: 3vh;
     }
     .notLoggedIn {
         position: relative;
-        right: 45vw;
+        right: 5vw;
         bottom: 2vh;
     }
     #signUpLink {
@@ -47,22 +49,25 @@
     #signInLink {
         position: relative;
         left: 35vw;
-        bottom: 3em;
+        bottom: 10.5vh;
     }
     #postJobLink {
         position: relative;
         top: 0.6em;
-        right: -0.5em;
+        right: -32vw;
+        width: 25vw;
     }
     #searchLink {
         position: relative;
         bottom: 2.5em;
-        left: 6em;
+        left: 50vw;
+        width: 25vw;
     }
     #loggedInLink {
         position: relative;
-        bottom: 5em;
+        bottom: 15vh;
         left: 12em;
+        width: 60vw;
     }
     #userNameLink {
         position: relative;
@@ -72,7 +77,34 @@
     }
     #viewRequestsLink {
         position: relative;
-        left: 10vw;
-        top: 2vh;
+        left: 35vw;
+        bottom: -0vh;
+        width: 30vw;
+    }
+    .loggedInProvider {
+        width: 75vw;
+    }
+    .userName {
+        bottom: 0vh;
+        left: 20vw;
+        width: 20vw;
+    }
+    #linksConsumer {
+        right: 10vw;
+    }
+    #linksProvider {
+        right: 10vw;
+    }
+    .logo {
+        right: 27vw;
+        top: 1vh;
+        z-index: 100000;
+    }
+    #userNameProvider {
+        left: 65vw;
+        width: 25vw;
+        bottom: 7vh;
+    }
+    #userNameTextPro {
     }
 }

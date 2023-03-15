@@ -13,30 +13,29 @@ import {
 } from "react-bootstrap";
 import { CurrentAccount } from "../context/CurrentAccount";
 
-export default function NewProviderRequests() {
+export default function CurrentUserJobs(props) {
     const { currentUser, setCurrentUser } = useContext(CurrentAccount);
     const [jobs, setJobs] = useState([]);
     const [reqs, setReqs] = useState([]);
     const [count, setCount] = useState(0);
     const [reqDisplay, setReqDisplay] = useState("");
-
+    const getRequests = async () => {
+        if (currentUser != undefined && currentUser != "") {
+            const response = await fetch(
+                `http://localhost:5050/jobs/postedBy/${currentUser._id}`,
+                {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+            const resData = await response.json();
+            setJobs(resData);
+            console.log(jobs);
+        }
+    };
     useEffect(() => {
-        const getRequests = async () => {
-            if (currentUser != undefined && currentUser != "") {
-                const response = await fetch(
-                    `http://localhost:5050/jobs/postedBy/${currentUser._id}`,
-                    {
-                        method: "GET",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                    }
-                );
-                const resData = await response.json();
-                setJobs(resData);
-                console.log(jobs);
-            }
-        };
         getRequests();
     }, [currentUser]);
 
@@ -106,83 +105,7 @@ export default function NewProviderRequests() {
         const data2 = await res2.json();
         console.log(data);
         console.log(data2, "data 2");
-        reload();
-    };
-
-    const RequestsDisplay = (props) => {
-        try {
-            const accounts = [];
-            const run = async () => {
-                console.log(props.id);
-                const response = await fetch(
-                    `http://localhost:5050/jobs/requests/${props.id}`
-                );
-                const data = await response.json();
-                console.log(data);
-                if (data != []) {
-                    data.default.forEach(async (job, i) => {
-                        const res2 = await fetch(
-                            `http://localhost:5050/memberAccounts/${job}`
-                        );
-                        const data2 = await res2.json();
-                        accounts.push(data2);
-                    });
-                }
-            };
-            run();
-
-            if (accounts.length) {
-                try {
-                    return accounts.map((acc, i) => (
-                        <Modal>
-                            <Modal.Header closeButton>
-                                Requests for{" "}
-                                <HandleName
-                                    category={props.category}
-                                    type="small"
-                                />
-                            </Modal.Header>
-                            <Modal.Body>
-                                <div className="jobRequestsList">
-                                    <Card>
-                                        <Card.Title>{acc.name}</Card.Title>
-                                        <Card.Text>{acc.description}</Card.Text>
-                                        <Card.Text>
-                                            {acc.accountStatus}
-                                        </Card.Text>
-                                    </Card>
-                                </div>
-                            </Modal.Body>
-                        </Modal>
-                    ));
-                } catch (err) {
-                    console.log(err);
-                }
-            } else {
-                try {
-                    return (
-                        <Card>
-                            <Card.Title closeButton>
-                                Requests for{" "}
-                                <HandleName
-                                    category={props.category}
-                                    type={"small"}
-                                />
-                            </Card.Title>
-                            <Card.Body>
-                                <div className="jobRequestsList">
-                                    <h1>No Requests Yet!</h1>
-                                </div>
-                            </Card.Body>
-                        </Card>
-                    );
-                } catch (err) {
-                    console.log(err);
-                }
-            }
-        } catch (err) {
-            console.log(err);
-        }
+        getRequests();
     };
 
     const HandleStatus = (props) => {
@@ -221,45 +144,52 @@ export default function NewProviderRequests() {
     const RenderJobs = () => {
         console.log(jobs);
         try {
-            return jobs.map((job, i) => (
-                <div className="job" key={i}>
-                    <Card>
-                        <Card.Title>
-                            <HandleName
-                                category={job.category}
-                                type={"title"}
-                            />
-                        </Card.Title>
-                        <Card.Text>{job.description}</Card.Text>
-                        <Card.Text>
-                            <HandleStatus
-                                status={job.status}
-                                id={job._id}
-                                category={job.category}
-                            />
-                        </Card.Text>
-                        <Accordion>
-                            <Accordion.Header>
-                                Requests for{" "}
-                                <HandleName category={job.category} />
-                            </Accordion.Header>
-                            <Accordion.Body>
-                                <RequestsDisplay
+            if (jobs.length > 0) {
+                console.log("224");
+
+                return jobs.map((job, i) => (
+                    <div className="job" key={i}>
+                        <Card>
+                            <Card.Title>
+                                <HandleName
                                     category={job.category}
-                                    id={job._id}
+                                    type={"title"}
                                 />
-                            </Accordion.Body>
-                        </Accordion>
-                    </Card>
-                </div>
-            ));
+                            </Card.Title>
+                            <Card.Text>{job.description}</Card.Text>
+                            <Card.Text>
+                                <HandleStatus
+                                    status={job.status}
+                                    id={job._id}
+                                    category={job.category}
+                                />
+                            </Card.Text>
+                        </Card>
+                    </div>
+                ));
+            } else if (jobs == [] || jobs.length == 0) {
+                console.log("257");
+                return (
+                    <h1 id="noJobsText">
+                        No jobs yet! Post one to get started
+                    </h1>
+                );
+            }
         } catch (err) {
             console.log(err);
         }
     };
 
+    if (props.type == "profilePage") {
+        return (
+            <div className="consumerJobs">
+                <h1 id="consumerJobsTitle2">Your Posted Jobs</h1>
+                <RenderJobs />
+            </div>
+        );
+    }
     return (
-        <div id="consumerJobs">
+        <div className="consumerJobs">
             <h1 id="consumerJobsTitle">Your Posted jobs</h1>
             <RenderJobs />
         </div>

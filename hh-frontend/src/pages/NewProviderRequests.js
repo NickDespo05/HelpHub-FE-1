@@ -30,7 +30,6 @@ export default function NewProviderRequests() {
                 );
                 const resData = await response.json();
                 setReqs(resData);
-                console.log(reqs);
             }
         };
         getRequests();
@@ -115,7 +114,6 @@ export default function NewProviderRequests() {
             const resData = await response.json();
 
             setJobs((jobs) => [...jobs, resData]);
-            console.log(resData);
         });
     };
 
@@ -124,25 +122,39 @@ export default function NewProviderRequests() {
             handleJobs();
             setCount(count + 1);
         } else {
-            console.log(count);
         }
     }, [reqs]);
 
     const RenderJobs = () => {
-        //   console.log(jobs);
-        return jobs.map((job, i) => (
-            <div className="job" key={i}>
-                <Card>
-                    <Card.Title>
-                        <HandleName category={job.category} />
-                    </Card.Title>
-                    <Card.Text>{job.description}</Card.Text>
-                    <Card.Text>
-                        <HandleStatus status={job.status} />
-                    </Card.Text>
-                </Card>
-            </div>
-        ));
+        for (let i = 0; i < jobs.length; i++) {
+            if (jobs[i] == null) {
+                jobs.pop(i);
+            }
+        }
+
+        if (jobs.length > 0 && jobs != []) {
+            return jobs.map((job, i) => (
+                <div className="job" key={i}>
+                    <Card>
+                        <Card.Title>
+                            <HandleName category={job.category} />
+                        </Card.Title>
+                        <Card.Text>{job.description}</Card.Text>
+                        <Card.Text>
+                            <HandleStatus status={job.status} />
+                        </Card.Text>
+                    </Card>
+                </div>
+            ));
+        } else {
+            return (
+                <div>
+                    <h1 id="noJobsJobs">
+                        No jobs yet! Request one and get started!
+                    </h1>
+                </div>
+            );
+        }
     };
 
     return (

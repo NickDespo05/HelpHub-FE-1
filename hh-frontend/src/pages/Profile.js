@@ -107,7 +107,7 @@ export default function Profile() {
                             </div>
                         </Container>
                         <div id="profileJobs">
-                            <CurrentUserJobs />
+                            <CurrentUserJobs type={"profilePage"} />
                         </div>
                     </div>
                 );

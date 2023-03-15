@@ -12,6 +12,7 @@ import { Routes, Route, BrowserRouter } from "react-router-dom";
 import NavbarHelpHub from "./components/Navbar_HelpHub";
 import EditProfile from "./pages/EditProfile";
 import NewProviderRequests from "./pages/NewProviderRequests";
+import InProgress from "./pages/InProgress";
 
 function App() {
     return (
@@ -47,6 +48,7 @@ function App() {
                                 path="/providerRequests"
                                 element={<NewProviderRequests />}
                             />
+                            <Route path="inProgress" element={<InProgress />} />
                         </Routes>
                     </BrowserRouter>
                 </div>

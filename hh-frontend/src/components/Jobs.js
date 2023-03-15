@@ -1,8 +1,10 @@
 import { CurrentAccount } from "../context/CurrentAccount";
 import React, { useEffect, useState, useContext } from "react";
 import { Container, Card, Row, Col, Form, Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 export default function Jobs() {
+    const navigate = useNavigate();
     const { currentUser } = useContext(CurrentAccount);
     const [category, setCategory] = useState("");
     const [jobs, setJobs] = useState([]);
@@ -25,28 +27,29 @@ export default function Jobs() {
         fetchJobsCategory(category);
     };
 
-    const handleProviderRequest = (e, id) => {
+    const handleProviderRequest = async (e, id) => {
         let request = id;
         e.preventDefault();
 
-        fetch(`http://localhost:5050/jobs/${id}`, {
+        await fetch(`http://localhost:5050/jobs/${id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ providerId: currentUser._id }),
+            body: JSON.stringify({ providerId: id }),
         });
-        console.log(id);
-        fetch(
-            `http://localhost:5050/memberAccounts/addRequest/${currentUser._id}`,
+        console.log(currentUser._id);
+        await fetch(
+            `http://localhost:5050/memberAccounts/setCurrentJob/${currentUser._id}`,
             {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ jobRequest: request }),
+                body: JSON.stringify({ currentJob: request }),
             }
         );
+        navigate("/inProgress");
     };
 
     const HandleName = (props) => {
@@ -121,7 +124,9 @@ export default function Jobs() {
         } else {
             return (
                 <div>
-                    <h1>No jobs found (Try changing your source)</h1>
+                    <h1 id="noJobsTextHome">
+                        No jobs found (Try changing your source)
+                    </h1>
                 </div>
             );
         }

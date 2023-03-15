@@ -1,5 +1,6 @@
 .App {
     text-align: center;
+    z-index: 0;
 }
 
 .App-logo {
@@ -12,7 +13,9 @@
         animation: App-logo-spin infinite 20s linear;
     }
 }
-
+* {
+    position: relative;
+}
 .App-header {
     background-color: #282c34;
     min-height: 100vh;
@@ -36,184 +39,206 @@
         transform: rotate(360deg);
     }
 }
+@media only screen and (min-width: 200px) {
+    .jobsContainer {
+        position: relative;
+        left: 15vw;
+        margin-bottom: 3vh;
+        margin-top: 2vh;
+        display: block;
+        z-index: 9000;
+    }
+    .job {
+        width: 75vw;
+        margin-bottom: 3vh;
+        margin-top: 2vh;
+    }
+    .formContainer {
+        position: relative;
+        top: 3em;
+        left: 3.5em;
+        width: 70%;
+        align-items: center;
+    }
+    .Spacer {
+        height: 4vh;
+    }
+    .navLink {
+        color: blue;
+        text-decoration: underline;
+        padding-top: 1vh;
+    }
+    .Spacer2 {
+        height: 3vh;
+    }
+    #ageContainer {
+        width: 20%;
+        position: relative;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .jobPostForm {
+        width: 75%;
+        position: relative;
+        left: 50%;
+        transform: translate(-50%, -0%);
+    }
+    #searchBar {
+        display: inline-flex;
+        position: relative;
+        top: 4vh;
+    }
+    .searchDefault {
+        position: relative;
+        top: 6vh;
+    }
+    .loginMessage {
+        position: relative;
+        left: 55vw;
+        top: 20vh;
+        width: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .categorySelect {
+        position: relative;
+        left: 35vw;
+        top: -2vh;
+        width: 50%;
+        transform: translate(-50%, -0%);
+    }
+    .postedJobsProfile {
+        position: relative;
+        top: 7vh;
+        min-width: 55vw;
+        left: 50%;
+        margin-right: 10vw;
+        transform: translate(-50%, -0%);
 
-.jobsContainer {
-    position: relative;
-    left: -2vw;
-    margin-bottom: 3vh;
-    margin-top: 2vh;
-    display: block;
-}
-.job {
-    width: 75vw;
-    margin-bottom: 3vh;
-    margin-top: 2vh;
-}
-.formContainer {
-    position: relative;
-    top: 3em;
-    left: 3.5em;
-    width: 70%;
-    align-items: center;
-}
-.Spacer {
-    height: 4vh;
-}
-.navLink {
-    color: blue;
-    text-decoration: underline;
-    padding-top: 1vh;
-}
-.Spacer2 {
-    height: 3vh;
-}
-#ageContainer {
-    width: 20%;
-    position: relative;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-.jobPostForm {
-    width: 75%;
-    position: relative;
-    left: 50%;
-    transform: translate(-50%, -0%);
-}
-#searchBar {
-    display: inline-flex;
-    position: relative;
-    top: 4vh;
-}
-.searchDefault {
-    position: relative;
-    top: 6vh;
-}
-.loginMessage {
-    position: relative;
-    left: 55vw;
-    top: 20vh;
-    width: 50%;
-    transform: translate(-50%, -50%);
-}
-.categorySelect {
-    position: relative;
-    left: 35vw;
-    top: -2vh;
-    width: 50%;
-    transform: translate(-50%, -0%);
-}
-.postedJobsProfile {
-    position: relative;
-    top: 7vh;
-    min-width: 55vw;
-    left: 50%;
-    margin-right: 10vw;
-    transform: translate(-50%, -0%);
+        border-width: medium;
+        border-radius: 20%;
+        background-color: lightgray;
+    }
+    .sideScrollPostedJobs {
+        margin: none;
+        display: flex;
+        position: relative;
+        top: 10vh;
+        height: 20vh;
+        max-width: 100%;
+        overflow-x: auto;
+    }
+    #postedJobsH1 {
+        position: relative;
+        top: 8vh;
+    }
+    #priceInput {
+        width: 20%;
+        position: relative;
+        top: 50%;
+        left: 25vw;
+        transform: translate(-50%, -50%);
+    }
 
-    border-width: medium;
-    border-radius: 20%;
-    background-color: lightgray;
-}
-.sideScrollPostedJobs {
-    margin: none;
-    display: flex;
-    position: relative;
-    top: 10vh;
-    height: 20vh;
-    max-width: 100%;
-    overflow-x: auto;
-}
-#postedJobsH1 {
-    position: relative;
-    top: 8vh;
-}
-#priceInput {
-    width: 20%;
-    position: relative;
-    top: 50%;
-    left: 25vw;
-    transform: translate(-50%, -50%);
-}
+    #priceControl {
+        position: relative;
+        left: 20vw;
+    }
+    #dolla {
+        font-size: 3vh;
+        position: relative;
+        top: 5.5vh;
+        left: 8vw;
+    }
+    #priceLabel {
+        position: relative;
+        top: 10.5vh;
+        font-size: 2.5vh;
+        right: 5vw;
+    }
+    #logoutButton {
+        position: relative;
+        top: 20vh;
+    }
+    .profileCard {
+        position: relative;
+        top: 15vh;
+    }
+    #editProfileButton {
+        position: relative;
+        top: 20vh;
+    }
+    .noRequests {
+        position: relative;
+        top: 20vh;
+    }
 
-#priceControl {
-    position: relative;
-    left: 20vw;
-}
-#dolla {
-    font-size: 3vh;
-    position: relative;
-    top: 5.5vh;
-    left: 8vw;
-}
-#priceLabel {
-    position: relative;
-    top: 10.5vh;
-    font-size: 2.5vh;
-    right: 5vw;
-}
-#logoutButton {
-    position: relative;
-    top: 20vh;
-}
-.profileCard {
-    position: relative;
-    top: 15vh;
-}
-#editProfileButton {
-    position: relative;
-    top: 20vh;
-}
-.noRequests {
-    position: relative;
-    top: 20vh;
-}
+    #providerJobReqs {
+        position: relative;
+        top: 7vh;
+        left: 12vw;
+    }
+    #requestedJobsTitle {
+        position: relative;
+        bottom: 2vh;
+        right: 11vw;
+    }
+    .sideSpace {
+        position: relative;
+        width: 5vw;
+    }
+    #noJobs {
+        position: relative;
+        top: 25vh;
+        width: 75%;
+        left: 20vw;
+    }
+    #noPostedJobs {
+        position: relative;
+        top: 10vh;
+    }
+    .postedTag {
+        font-size: 1.2em;
 
-#providerJobReqs {
-    position: relative;
-    top: 7vh;
-    left: 12vw;
-}
-#requestedJobsTitle {
-    position: relative;
-    bottom: 2vh;
-    right: 11vw;
-}
-.sideSpace {
-    position: relative;
-    width: 5vw;
-}
-#noJobs {
-    position: relative;
-    top: 25vh;
-    width: 75%;
-    left: 20vw;
-}
-#noPostedJobs {
-    position: relative;
-    top: 10vh;
-}
-.postedTag {
-    font-size: 1.2em;
-
-    height: 0em;
-}
-.smallCategory {
-    position: relative;
-    top: 1vh;
-    left: 2vw;
-}
-#profileJobs {
-    position: relative;
-    top: 20vh;
-    left: 15vw;
-}
-#consumerJobsTitle {
-    position: relative;
-    right: 11vw;
-}
-#profileDiv {
-    position: relative;
-    bottom: 10vh;
-    z-index: -999;
+        height: 0em;
+    }
+    .smallCategory {
+        position: relative;
+        top: 1vh;
+        left: 2vw;
+    }
+    #profileJobs {
+        position: relative;
+        top: 20vh;
+        left: 15vw;
+    }
+    #consumerJobsTitle {
+        left: 7vw;
+    }
+    #profileDiv {
+        position: relative;
+        bottom: 10vh;
+        z-index: -999;
+    }
+    #noJobsText {
+        top: 15vh;
+        left: 7vw;
+    }
+    #consumerJobsTitle2 {
+        right: 15vw;
+    }
+    #noJobsTextHome {
+        right: 5vw;
+    }
+    #noJobsJobs {
+        right: 10vw;
+    }
+    #inProgress {
+        width: 75vw;
+        top: 10vh;
+        left: 12.5vw;
+    }
+    #inProgressHeader {
+        top: 10vh;
+    }
 }
