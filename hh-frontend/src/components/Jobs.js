@@ -5,13 +5,13 @@ import { useNavigate } from "react-router-dom";
 
 export default function Jobs() {
     const navigate = useNavigate();
-    const { currentUser } = useContext(CurrentAccount);
+    const { currentUser, setCurrentUser } = useContext(CurrentAccount);
     const [category, setCategory] = useState("");
     const [jobs, setJobs] = useState([]);
     const [provider, setProvider] = useState({
         providerId: "",
     });
-    const display = [];
+    const [count, setCount] = useState({});
 
     useEffect(() => {
         const fetchJobs = async () => {
@@ -27,29 +27,33 @@ export default function Jobs() {
         fetchJobsCategory(category);
     };
 
-    const handleProviderRequest = async (e, id) => {
-        let request = id;
+    const handleProviderRequest = async (e, i) => {
         e.preventDefault();
 
-        await fetch(`http://localhost:5050/jobs/${id}`, {
+        const response2 = await fetch(`http://localhost:5050/jobs/${jobs[i]._id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ providerId: id }),
+            body: JSON.stringify({ providerId: currentUser._id }),
         });
         console.log(currentUser._id);
-        await fetch(
+        const response = await fetch(
             `http://localhost:5050/memberAccounts/setCurrentJob/${currentUser._id}`,
             {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ currentJob: request }),
+                body: JSON.stringify({ currentJob: jobs[i]._id }),
             }
         );
-        navigate("/inProgress");
+        const data = await response.json();
+        setCurrentUser(data);
+        console.log(currentUser);
+        if (response.status == 200 && response2.status == 200) {
+            navigate("/inProgress")
+        }
     };
 
     const HandleName = (props) => {
@@ -111,7 +115,7 @@ export default function Jobs() {
                                 <Card.Text>{job.description}</Card.Text>
                                 <Button
                                     onClick={(e) => {
-                                        handleProviderRequest(e, job._id);
+                                        handleProviderRequest(e, i);
                                     }}
                                 >
                                     Request
@@ -131,8 +135,6 @@ export default function Jobs() {
             );
         }
     };
-
-    console.log(DisplayJobs());
 
     const fetchJobsCategory = async (category) => {
         const response = await fetch(

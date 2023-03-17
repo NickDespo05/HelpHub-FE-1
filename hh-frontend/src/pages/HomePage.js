@@ -13,7 +13,6 @@ export default function HomePage() {
         } else {
             HandleDisplay();
         }
-        console.log(Display);
     }, [currentUser]);
 
     const HandleDisplay = () => {

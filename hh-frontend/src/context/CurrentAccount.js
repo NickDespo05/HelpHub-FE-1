@@ -19,9 +19,19 @@ function CurrentAccountProvider({ children }) {
                     },
                 }
             );
-            let data = await response.json();
+            let response2 = await fetch(
+                `http://localhost:5050/memberAccounts/memberAccount`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem(
+                            "token"
+                        )}`,
+                    },
+                }
+            );
+            let data = await response2.json();
             setCurrentUser(data);
-            console.log(currentUser);
+            console.log(data);
         };
         logIn();
     }, []);

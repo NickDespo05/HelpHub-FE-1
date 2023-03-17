@@ -48,7 +48,10 @@ function App() {
                                 path="/providerRequests"
                                 element={<NewProviderRequests />}
                             />
-                            <Route path="inProgress" element={<InProgress />} />
+                            <Route
+                                path="/inProgress"
+                                element={<InProgress />}
+                            />
                         </Routes>
                     </BrowserRouter>
                 </div>

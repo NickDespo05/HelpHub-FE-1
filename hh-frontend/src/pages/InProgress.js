@@ -4,31 +4,60 @@ import { useNavigate } from "react-router-dom";
 import { Card, Container, ListGroup, Button } from "react-bootstrap";
 
 export default function InProgress() {
-    const { currentUser } = useContext(CurrentAccount);
+    const { currentUser, setCurrentUser } = useContext(CurrentAccount);
     const [job, setJob] = useState({});
     const [postedBy, setPostedBy] = useState("");
 
-    useEffect(() => {
+    const navigate = useNavigate();
+    const getJob = async () => {
         console.log(currentUser);
-        const getJob = async () => {
-            if (currentUser != undefined && currentUser != "") {
-                try {
-                    const response = await fetch(
-                        `http://localhost:5050/jobs/${currentUser.currentJob}`,
-                        {
-                            method: "GET",
-                            headers: {
-                                "Content-Type": "application/json",
-                            },
-                        }
-                    );
-                    const data = await response.json();
-                    setJob(data);
-                } catch (err) {
-                    console.log(err);
-                }
+
+        if (
+            currentUser != undefined &&
+            currentUser != "" &&
+            currentUser.currentJob != ""
+        ) {
+            console.log(currentUser.currentJob);
+            try {
+                const response = await fetch(
+                    `http://localhost:5050/jobs/${currentUser.currentJob}`,
+                    {
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                    }
+                );
+                const data = await response.json();
+                console.log(data, "data");
+                setJob(data);
+                console.log(job, "job");
+            } catch (err) {
+                console.log(err);
             }
+        } else {
+        }
+    };
+
+    useEffect(() => {
+        const getCurrentAgain = async () => {
+            let response2 = await fetch(
+                `http://localhost:5050/memberAccounts/memberAccount`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem(
+                            "token"
+                        )}`,
+                    },
+                }
+            );
+            let data = await response2.json();
+            setCurrentUser(data);
         };
+        getCurrentAgain();
+    }, []);
+
+    useEffect(() => {
         getJob();
     }, [currentUser]);
 
@@ -74,6 +103,28 @@ export default function InProgress() {
         }
     };
 
+    const handleJobCancel = async () => {
+        console.log(job);
+        if (job._id != "" && job._id != undefined) {
+            const response = await fetch(
+                `http://localhost:5050/memberAccounts/cancelJob/${currentUser._id}/${job._id}`,
+                {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ currentJob: "" }),
+                }
+            );
+
+            navigate("/");
+        } else {
+            console.log(job);
+            console.log(currentUser);
+            getJob();
+        }
+    };
+
     return (
         <div>
             <h1 id="inProgressHeader">Job in Progress</h1>
@@ -90,7 +141,9 @@ export default function InProgress() {
                     </ListGroup>
                 </Card>
                 <Button variant="primary">Arrived</Button>
-                <Button variant="danger">Cancel</Button>
+                <Button variant="danger" onClick={handleJobCancel}>
+                    Cancel
+                </Button>
                 <Button variant="warning">Completed</Button>
             </div>
         </div>

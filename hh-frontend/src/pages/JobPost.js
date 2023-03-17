@@ -86,7 +86,11 @@ export default function JobPost() {
             <div className="Spacer2"></div>
             <h1>Post a Job</h1>
             <div className="jobPostForm">
-                <Form onSubmit={handleSubmit}>
+                <Form
+                    onSubmit={(e) => {
+                        handleSubmit(e);
+                    }}
+                >
                     <div className="Spacer"></div>
                     <Form.Group>
                         <Form.Label>Job Category</Form.Label>
