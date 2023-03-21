@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
 import { CurrentAccount } from "../context/CurrentAccount";
 import { useNavigate } from "react-router-dom";
-import { Card, Container, ListGroup, Button } from "react-bootstrap";
+import { Card, Container, ListGroup, Button, Badge } from "react-bootstrap";
 
 export default function InProgress() {
     const { currentUser, setCurrentUser } = useContext(CurrentAccount);
     const [job, setJob] = useState({});
     const [postedBy, setPostedBy] = useState("");
-
+    const [clickCheck, setClickCheck] = useState(0);
+    var timer;
     const navigate = useNavigate();
     const getJob = async () => {
         console.log(currentUser);
@@ -125,6 +126,75 @@ export default function InProgress() {
         }
     };
 
+    var seconds = 0;
+    var minutes = 0;
+    // useEffect(() => {
+    //     const timer = setInterval(() => {
+    //         console.log(sec)
+    //         setSec(sec + 1);
+    //         // if (sec == 59) {
+    //         //     setMin(min + 1);
+    //         //     setSec(0);
+    //         // }
+    //         console.log(sec);
+    //         // if (min == 45) {
+    //         //     clearInterval(timer);
+    //         // }
+    //     }, 1000);
+    //     return () => clearInterval(timer);
+    // }, [clickCheck]);
+
+    // const Timer = () => {
+    //     if (clickCheck != 0) {
+    //         return (
+    //             <Container>
+    //                 <Badge variant="secondary">
+    //                     {sec}:{min}
+    //                 </Badge>
+    //             </Container>
+    //         );
+    //     }
+    // };
+
+    const handleArrived = async (e) => {
+        e.preventDefault();
+        const response = await fetch(`http://localhost:5050/jobs/${job._id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                status: "arrived",
+            }),
+        });
+        const data = await response.json();
+        console.log(data);
+    };
+
+    const HandleStatus = () => {
+        if (clickCheck > 0) {
+            return (
+                <Button
+                    onClick={(e) => {
+                        setClickCheck(1);
+                    }}
+                >
+                    Completed
+                </Button>
+            );
+        } else {
+            return (
+                <Button
+                    onClick={(e) => {
+                        handleArrived(e);
+                    }}
+                >
+                    Arrived
+                </Button>
+            );
+        }
+    };
+
     return (
         <div>
             <h1 id="inProgressHeader">Job in Progress</h1>
@@ -140,11 +210,11 @@ export default function InProgress() {
                         <ListGroup.Item>Address: {job.address}</ListGroup.Item>
                     </ListGroup>
                 </Card>
-                <Button variant="primary">Arrived</Button>
+
                 <Button variant="danger" onClick={handleJobCancel}>
                     Cancel
                 </Button>
-                <Button variant="warning">Completed</Button>
+                <HandleStatus />
             </div>
         </div>
     );

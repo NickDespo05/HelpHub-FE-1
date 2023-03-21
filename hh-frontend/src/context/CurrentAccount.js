@@ -9,16 +9,6 @@ function CurrentAccountProvider({ children }) {
         const logIn = async () => {
             console.log("getting user");
 
-            let response = await fetch(
-                `http://localhost:5050/memberAccounts/memberAccount`,
-                {
-                    headers: {
-                        Authorization: `Bearer ${localStorage.getItem(
-                            "token"
-                        )}`,
-                    },
-                }
-            );
             let response2 = await fetch(
                 `http://localhost:5050/memberAccounts/memberAccount`,
                 {

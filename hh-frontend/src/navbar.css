@@ -65,9 +65,9 @@
     }
     #loggedInLink {
         position: relative;
-        bottom: 15vh;
-        left: 12em;
-        width: 60vw;
+        bottom: 8vh;
+        left: 48vw;
+        width: 40vw;
     }
     #userNameLink {
         position: relative;
@@ -86,8 +86,8 @@
     }
     .userName {
         bottom: 0vh;
-        left: 20vw;
-        width: 20vw;
+        left: 0vw;
+        width: 40vw;
     }
     #linksConsumer {
         right: 10vw;

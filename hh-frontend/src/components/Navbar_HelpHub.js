@@ -85,11 +85,6 @@ export default function NavbarHelpHub() {
                                     <p className="navLink">Post a Job</p>
                                 </Nav.Link>
                             </div>
-                            <div className="navLinks">
-                                <Nav.Link href="/search" id="searchLink">
-                                    <p className="navLink">Search</p>
-                                </Nav.Link>
-                            </div>
                         </div>
                         <div className="navLinks" id="loggedInLink">
                             <Nav.Link href="/profile">

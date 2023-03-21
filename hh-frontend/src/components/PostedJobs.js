@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { CurrentAccount } from "../context/CurrentAccount";
-import { Button, Card, Row, Col, Container } from "react-bootstrap";
+import { Button, Card, Row, Col, Container, ListGroup } from "react-bootstrap";
 
 export default function PostedJobs() {
     const { currentUser } = useContext(CurrentAccount);

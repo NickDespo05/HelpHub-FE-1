@@ -16,6 +16,7 @@ import { CurrentAccount } from "../context/CurrentAccount";
 export default function CurrentUserJobs(props) {
     const { currentUser, setCurrentUser } = useContext(CurrentAccount);
     const [jobs, setJobs] = useState([]);
+    const [providerNames, setProviderNames] = useState([]);
     const [reqs, setReqs] = useState([]);
     const [count, setCount] = useState(0);
     const [reqDisplay, setReqDisplay] = useState("");
@@ -84,29 +85,25 @@ export default function CurrentUserJobs(props) {
         }
     };
 
-    const handleRemove = async (e, id) => {
-        const response = await fetch(
-            `http://localhost:5050/memberAccounts/removeJob/${currentUser._id}`,
-            {
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                method: "PUT",
-                body: JSON.stringify({ job: id }),
+    const getProviders = async () => {
+        jobs.forEach(async (job, i) => {
+            if (job.provider) {
+                const response = await fetch(
+                    `http://localhost:5050/memberAccounts/${job.provider}`
+                );
+                const data = await response.json();
+                console.log(data);
+                setProviderNames((names) => [...names, data[0].name]);
+            } else {
+                setProviderNames((names) => [...names, ""]);
             }
-        );
-        const data = await response.json();
-        const res2 = await fetch(`http://localhost:5050/jobs/${id}`, {
-            headers: {
-                "Content-Type": "application/json",
-            },
-            method: "DELETE",
         });
-        const data2 = await res2.json();
-        console.log(data);
-        console.log(data2, "data 2");
-        getRequests();
     };
+
+    useEffect(() => {
+        getProviders();
+        console.log(providerNames);
+    }, [jobs]);
 
     const HandleStatus = (props) => {
         if (props.status == "posted") {
@@ -117,26 +114,36 @@ export default function CurrentUserJobs(props) {
                             <p className="postedTag">Status: </p>
                             <p className="postedTag">Posted </p>
                         </Badge>
-
-                        <Button
-                            variant="danger"
-                            onClick={(e) => {
-                                handleRemove(e, props.id);
-                            }}
-                        >
-                            Remove
-                        </Button>
                     </Nav>
                 </Container>
             );
         } else if (
-            props.status != "posted" &&
+            props.status == "in progress" &&
             props.provider != currentUser._id
         ) {
             return (
-                <Container>
-                    <ListGroup.Item>In Progress</ListGroup.Item>
-                </Container>
+                <Badge bg="light" text="dark">
+                    <p className="postedTag">Status: </p>
+                    <p className="postedTag">In progress </p>
+                </Badge>
+            );
+        } else if (props.status == "completed") {
+            return (
+                <Badge bg="success" text="dark">
+                    <p className="postedTag">Status: </p>
+                    <p className="postedTag">Completed</p>
+                </Badge>
+            );
+        }
+    };
+
+    const HandleProviderName = (props) => {
+        if (props.job.provider && props.job.provider != "") {
+            return (
+                <Badge>
+                    <p className="postedTag">Provider Name: </p>
+                    <p className="postedTag">{providerNames[props.i]} </p>
+                </Badge>
             );
         }
     };
@@ -156,13 +163,30 @@ export default function CurrentUserJobs(props) {
                                     type={"title"}
                                 />
                             </Card.Title>
-                            <Card.Text>{job.description}</Card.Text>
+                            <Card.Text>Desc: {job.description}</Card.Text>
+                            <Card.Text>Address: {job.address}</Card.Text>
+
                             <Card.Text>
-                                <HandleStatus
-                                    status={job.status}
-                                    id={job._id}
-                                    category={job.category}
-                                />
+                                <Nav className="justify-content-center">
+                                    <Nav.Item>
+                                        <HandleStatus
+                                            status={job.status}
+                                            id={job._id}
+                                            category={job.category}
+                                        />
+                                    </Nav.Item>
+                                    <Nav.Item>
+                                        <Badge bg="light" text="dark">
+                                            <p className="postedTag">Price: </p>
+                                            <p className="postedTag">
+                                                ${job.price}
+                                            </p>
+                                        </Badge>
+                                    </Nav.Item>
+                                    <Nav.Item>
+                                        <HandleProviderName job={job} i={i} />
+                                    </Nav.Item>
+                                </Nav>
                             </Card.Text>
                         </Card>
                     </div>
