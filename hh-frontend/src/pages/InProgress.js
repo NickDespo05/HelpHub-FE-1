@@ -11,14 +11,14 @@ export default function InProgress() {
     var timer;
     const navigate = useNavigate();
     const getJob = async () => {
-        console.log(currentUser);
+        currentUser;
 
         if (
             currentUser != undefined &&
             currentUser != "" &&
             currentUser.currentJob != ""
         ) {
-            console.log(currentUser.currentJob);
+            currentUser.currentJob;
             try {
                 const response = await fetch(
                     `http://localhost:5050/jobs/${currentUser.currentJob}`,
@@ -30,11 +30,11 @@ export default function InProgress() {
                     }
                 );
                 const data = await response.json();
-                console.log(data, "data");
+                data, "data";
                 setJob(data);
-                console.log(job, "job");
+                job, "job";
             } catch (err) {
-                console.log(err);
+                err;
             }
         } else {
         }
@@ -63,7 +63,7 @@ export default function InProgress() {
     }, [currentUser]);
 
     useEffect(() => {
-        console.log(job);
+        job;
         const getPosted = async () => {
             if (job !== {}) {
                 const response = await fetch(
@@ -76,7 +76,7 @@ export default function InProgress() {
                     }
                 );
                 const data = await response.json();
-                console.log(data);
+                data;
                 setPostedBy(data[0].name);
             }
         };
@@ -105,7 +105,7 @@ export default function InProgress() {
     };
 
     const handleJobCancel = async () => {
-        console.log(job);
+        job;
         if (job._id != "" && job._id != undefined) {
             const response = await fetch(
                 `http://localhost:5050/memberAccounts/cancelJob/${currentUser._id}/${job._id}`,
@@ -120,8 +120,8 @@ export default function InProgress() {
 
             navigate("/");
         } else {
-            console.log(job);
-            console.log(currentUser);
+            job;
+            currentUser;
             getJob();
         }
     };
@@ -130,13 +130,13 @@ export default function InProgress() {
     var minutes = 0;
     // useEffect(() => {
     //     const timer = setInterval(() => {
-    //         console.log(sec)
+    //         (sec)
     //         setSec(sec + 1);
     //         // if (sec == 59) {
     //         //     setMin(min + 1);
     //         //     setSec(0);
     //         // }
-    //         console.log(sec);
+    //         (sec);
     //         // if (min == 45) {
     //         //     clearInterval(timer);
     //         // }
@@ -158,6 +158,7 @@ export default function InProgress() {
 
     const handleArrived = async (e) => {
         e.preventDefault();
+        setClickCheck(1);
         const response = await fetch(`http://localhost:5050/jobs/${job._id}`, {
             method: "PUT",
             headers: {
@@ -168,29 +169,63 @@ export default function InProgress() {
             }),
         });
         const data = await response.json();
-        console.log(data);
+        data;
+    };
+
+    const handleCompletion = async () => {
+        const response = await fetch(
+            `http://localhost:5050/memberAccounts/completeJob/${currentUser._id}/${job.postedBy}`,
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                method: "PUT",
+                body: JSON.stringify({ job: job._id }),
+            }
+        );
+        const data = await response.json();
+        data;
+        if (response.status == 200) {
+            navigate("/");
+        } else {
+            response;
+        }
     };
 
     const HandleStatus = () => {
         if (clickCheck > 0) {
             return (
-                <Button
-                    onClick={(e) => {
-                        setClickCheck(1);
-                    }}
-                >
-                    Completed
-                </Button>
+                <div>
+                    <Button
+                        onClick={() => {
+                            handleCompletion();
+                        }}
+                        variant="success"
+                    >
+                        Completed
+                    </Button>
+                    <p>
+                        A job cannot be canceled a job if you have arrived. If
+                        you have a problem please contact helphub@helphub.com or
+                        call 610-716-9658
+                    </p>
+                </div>
             );
         } else {
             return (
-                <Button
-                    onClick={(e) => {
-                        handleArrived(e);
-                    }}
-                >
-                    Arrived
-                </Button>
+                <div>
+                    <Button
+                        variant="warning"
+                        onClick={(e) => {
+                            handleArrived(e);
+                        }}
+                    >
+                        Arrived
+                    </Button>
+                    <Button variant="danger" onClick={handleJobCancel}>
+                        Cancel
+                    </Button>
+                </div>
             );
         }
     };
@@ -211,9 +246,6 @@ export default function InProgress() {
                     </ListGroup>
                 </Card>
 
-                <Button variant="danger" onClick={handleJobCancel}>
-                    Cancel
-                </Button>
                 <HandleStatus />
             </div>
         </div>

@@ -21,10 +21,6 @@ export default function Profile() {
     const [edit, setEdit] = useState(currentUser);
     const [editing, setEditing] = useState(false);
 
-    useEffect(() => {
-        console.log(currentUser);
-    });
-
     const handleEdit = async () => {
         const response = await fetch(
             `http://localhost:5050/memberAccounts/${currentUser._id}`,

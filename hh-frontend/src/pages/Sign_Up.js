@@ -92,13 +92,11 @@ export default function SignUp() {
     const handleError = async (res) => {
         if (res.status == 400) {
             setError("Must have one Capital Letter ");
-            console.log("here");
         } else {
             setLoginInfo({
                 email: info.email,
                 password: info.password,
             });
-            console.log(loginInfo);
             const loginRes = await fetch(
                 `http://localhost:5050/memberAccounts/login`,
                 {
@@ -113,11 +111,9 @@ export default function SignUp() {
 
             if (loginRes.status == 200) {
                 setCurrentUser(loginData.user);
-                console.log(loginData.user);
                 localStorage.setItem("token", loginData.token);
                 navigate("/");
             } else {
-                console.log(loginData.message);
             }
             navigate("/");
         }
@@ -150,7 +146,6 @@ export default function SignUp() {
                     }),
                 }
             );
-            console.log(response);
             handleError(response);
         } else if (info.accountType == "provider") {
             const response = await fetch(
@@ -172,7 +167,6 @@ export default function SignUp() {
                     }),
                 }
             );
-            console.log(response);
             handleError(response);
         }
     };

@@ -11,6 +11,7 @@ export default function Jobs() {
     const [provider, setProvider] = useState({
         providerId: "",
     });
+    const [numJobs, setNumJobs] = useState(0);
     const [count, setCount] = useState({});
 
     useEffect(() => {
@@ -30,14 +31,17 @@ export default function Jobs() {
     const handleProviderRequest = async (e, i) => {
         e.preventDefault();
 
-        const response2 = await fetch(`http://localhost:5050/jobs/${jobs[i]._id}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ providerId: currentUser._id }),
-        });
-        console.log(currentUser._id);
+        const response2 = await fetch(
+            `http://localhost:5050/jobs/${jobs[i]._id}`,
+            {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ providerId: currentUser._id }),
+            }
+        );
+
         const response = await fetch(
             `http://localhost:5050/memberAccounts/setCurrentJob/${currentUser._id}`,
             {
@@ -50,9 +54,9 @@ export default function Jobs() {
         );
         const data = await response.json();
         setCurrentUser(data);
-        console.log(currentUser);
+
         if (response.status == 200 && response2.status == 200) {
-            navigate("/inProgress")
+            navigate("/inProgress");
         }
     };
 
@@ -104,18 +108,18 @@ export default function Jobs() {
         );
     };
 
-    const DisplayJobs = () => {
-        if (jobs.length > 0) {
-            return jobs.map((job, i) => (
-                <Col key={i}>
+    const HandleJob = (props) => {
+        if (props.job.status == "posted") {
+            return (
+                <Col key={props.i}>
                     <div className="job">
                         <Container md="auto" sm={8}>
                             <Card>
-                                <HandleName job={job} />
-                                <Card.Text>{job.description}</Card.Text>
+                                <HandleName job={props.job} />
+                                <Card.Text>{props.job.description}</Card.Text>
                                 <Button
                                     onClick={(e) => {
-                                        handleProviderRequest(e, i);
+                                        handleProviderRequest(e, props.i);
                                     }}
                                 >
                                     Request
@@ -124,7 +128,22 @@ export default function Jobs() {
                         </Container>
                     </div>
                 </Col>
-            ));
+            );
+        } else {
+            setNumJobs(0);
+            return (
+                <div id="noJobsDiv">
+                    <h1 id="noJobsTextHome">
+                        No jobs found (Try changing your source)
+                    </h1>
+                </div>
+            );
+        }
+    };
+
+    const DisplayJobs = () => {
+        if (jobs.length > 0) {
+            return jobs.map((job, i) => <HandleJob job={job} i={i} />);
         } else {
             return (
                 <div>
@@ -141,7 +160,7 @@ export default function Jobs() {
             `http://localhost:5050/jobs/category/` + category
         );
         const data = await response.json();
-        console.log(data);
+
         setJobs(data);
     };
 

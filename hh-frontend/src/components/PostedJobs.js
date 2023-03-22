@@ -18,7 +18,6 @@ export default function PostedJobs() {
     useEffect(() => {
         if (currentUser != null) {
             postedJobs();
-            console.log(jobs);
         }
     }, [currentUser]);
 

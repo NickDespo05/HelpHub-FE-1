@@ -4,7 +4,7 @@ import HomePage from "./pages/HomePage";
 import SignIn from "./pages/Sign_In";
 import SignUp from "./pages/Sign_Up";
 import JobPost from "./pages/JobPost";
-import Search from "./pages/Search";
+
 import Profile from "./pages/Profile";
 import CurrentAccountProvider from "./context/CurrentAccount";
 import { ThemeProvider } from "react-bootstrap";
@@ -38,7 +38,6 @@ function App() {
                             <Route path="/signIn" element={<SignIn />} />
                             <Route path="/signUp" element={<SignUp />} />
                             <Route path="/postJob" element={<JobPost />} />
-                            <Route path="/search" element={<Search />} />
                             <Route path="/profile" element={<Profile />} />
                             <Route
                                 path="/editProfile"

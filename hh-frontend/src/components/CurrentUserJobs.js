@@ -33,7 +33,6 @@ export default function CurrentUserJobs(props) {
             );
             const resData = await response.json();
             setJobs(resData);
-            console.log(jobs);
         }
     };
     useEffect(() => {
@@ -75,7 +74,6 @@ export default function CurrentUserJobs(props) {
                     return <p className="smallCategory">Misc</p>;
 
                 case "homeCleaning":
-                    console.log(props.type);
                     return <p className="smallCategory"> Home Cleaning</p>;
                 default:
                     return (
@@ -92,7 +90,7 @@ export default function CurrentUserJobs(props) {
                     `http://localhost:5050/memberAccounts/${job.provider}`
                 );
                 const data = await response.json();
-                console.log(data);
+
                 setProviderNames((names) => [...names, data[0].name]);
             } else {
                 setProviderNames((names) => [...names, ""]);
@@ -102,7 +100,6 @@ export default function CurrentUserJobs(props) {
 
     useEffect(() => {
         getProviders();
-        console.log(providerNames);
     }, [jobs]);
 
     const HandleStatus = (props) => {
@@ -149,11 +146,8 @@ export default function CurrentUserJobs(props) {
     };
 
     const RenderJobs = () => {
-        console.log(jobs);
         try {
             if (jobs.length > 0) {
-                console.log("224");
-
                 return jobs.map((job, i) => (
                     <div className="job" key={i}>
                         <Card>
@@ -192,16 +186,13 @@ export default function CurrentUserJobs(props) {
                     </div>
                 ));
             } else if (jobs == [] || jobs.length == 0) {
-                console.log("257");
                 return (
                     <h1 id="noJobsText">
                         No jobs yet! Post one to get started
                     </h1>
                 );
             }
-        } catch (err) {
-            console.log(err);
-        }
+        } catch (err) {}
     };
 
     if (props.type == "profilePage") {

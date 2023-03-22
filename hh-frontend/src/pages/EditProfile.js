@@ -100,7 +100,6 @@ export default function EditProfile() {
         } else {
             const data = await res.json();
             setCurrentUser(data);
-            console.log(data);
         }
     };
 
@@ -116,7 +115,7 @@ export default function EditProfile() {
                 body: JSON.stringify(info),
             }
         );
-        console.log(response);
+
         checkStatus(response);
     };
 

@@ -21,20 +21,8 @@ export default function JobPost() {
         completedJob: "",
     });
 
-    useEffect(() => {
-        const setUp = () => {
-            console.log(info);
-
-            console.log(currentUser);
-
-            console.log(info.state, info.postedBy);
-        };
-        setUp();
-    }, []);
-
     const handleStatus = (res) => {
         if (res.status !== 200) {
-            console.log("#2");
             handleSubmit();
         }
     };
@@ -45,7 +33,7 @@ export default function JobPost() {
             setInfo({
                 ...info,
             });
-            console.log(info);
+
             const response = await fetch(`http://localhost:5050/jobs`, {
                 method: `POST`,
                 headers: {
@@ -53,13 +41,11 @@ export default function JobPost() {
                 },
                 body: JSON.stringify(info),
             });
-            console.log("56");
-            console.log(response);
 
             handleStatus(response);
 
             const data = await response.json();
-            console.log(data._id, " : data id");
+
             setPostedJobs({ completedJob: data._id });
             const response2 = await fetch(
                 `http://localhost:5050/memberAccounts/addJob/${currentUser._id}`,
@@ -73,12 +59,9 @@ export default function JobPost() {
             );
             const data2 = await response2.json();
             setInfo(data);
-            console.log(data, " data");
-            console.log(data2, " data2");
+
             navigate("/");
-        } catch (err) {
-            console.log(err);
-        }
+        } catch (err) {}
     };
 
     return (

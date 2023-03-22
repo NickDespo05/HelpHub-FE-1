@@ -5,8 +5,28 @@ import CurrentUserJobs from "../components/CurrentUserJobs";
 import PostedJobs from "../components/PostedJobs";
 
 export default function HomePage() {
-    const { currentUser } = useContext(CurrentAccount);
+    const { currentUser, setCurrentUser } = useContext(CurrentAccount);
     const [Display, setDisplay] = useState({});
+    useEffect(() => {
+        const logIn = async () => {
+            ("getting user");
+
+            let response2 = await fetch(
+                `http://localhost:5050/memberAccounts/memberAccount`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem(
+                            "token"
+                        )}`,
+                    },
+                }
+            );
+            let data = await response2.json();
+            setCurrentUser(data);
+            data;
+        };
+        logIn();
+    }, []);
     useEffect(() => {
         if (currentUser == undefined && currentUser != "") {
             HandleDisplay();

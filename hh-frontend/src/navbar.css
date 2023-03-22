@@ -44,12 +44,14 @@
     }
     #signUpLink {
         position: relative;
-        left: 6vw;
+        left: 35vw;
+        width: 20vw;
     }
     #signInLink {
         position: relative;
-        left: 35vw;
+        left: 65vw;
         bottom: 10.5vh;
+        width: 20vw;
     }
     #postJobLink {
         position: relative;
@@ -106,5 +108,11 @@
         bottom: 7vh;
     }
     #userNameTextPro {
+    }
+    #logoNotLogged {
+        right: 28vw;
+    }
+    #noJobsDiv {
+        left: 20vw;
     }
 }

@@ -17,6 +17,7 @@ export default function NavbarHelpHub() {
                             alt="HelpHub"
                             className="logoPic"
                             href="/"
+                            id="logoNotLogged"
                         />
                     </Navbar.Brand>
                     <div className="navLinks" id="signUpLink">
