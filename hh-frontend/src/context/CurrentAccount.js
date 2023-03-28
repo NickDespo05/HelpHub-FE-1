@@ -7,8 +7,6 @@ function CurrentAccountProvider({ children }) {
 
     useEffect(() => {
         const logIn = async () => {
-            ("getting user");
-
             let response2 = await fetch(
                 `http://localhost:5050/memberAccounts/memberAccount`,
                 {

@@ -1,67 +1,36 @@
 import { CurrentAccount } from "../context/CurrentAccount";
+import { JobInfo } from "../context/JobInfo";
 import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 import NavbarHelpHub from "../components/Navbar_HelpHub";
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+import PayPalButton from "../components/PayPalButton";
 
 export default function JobPost() {
     const { currentUser } = useContext(CurrentAccount);
+    const { jobInfo, setJobInfo } = useContext(JobInfo);
     const [info, setInfo] = useState({
         category: "",
         postedBy: "",
         description: "",
         address: "",
-        image: "",
         state: "",
-        price: 20,
+        price: "",
     });
+
     const navigate = useNavigate();
+    const { setCurrentUser } = useContext(CurrentAccount);
+    const [paidFor, setPaidFor] = useState(false);
 
-    const [postedJobs, setPostedJobs] = useState({
-        completedJob: "",
-    });
-
-    const handleStatus = (res) => {
-        if (res.status !== 200) {
-            handleSubmit();
-        }
-    };
-
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-        try {
-            setInfo({
-                ...info,
-            });
-
-            const response = await fetch(`http://localhost:5050/jobs`, {
-                method: `POST`,
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(info),
-            });
-
-            handleStatus(response);
-
-            const data = await response.json();
-
-            setPostedJobs({ completedJob: data._id });
-            const response2 = await fetch(
-                `http://localhost:5050/memberAccounts/addJob/${currentUser._id}`,
-                {
-                    method: "PUT",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ completedJob: data._id }),
-                }
-            );
-            const data2 = await response2.json();
-            setInfo(data);
-
-            navigate("/");
-        } catch (err) {}
+        if (Object.values(info).indexOf("" > -1)) {
+            setJobInfo(info);
+            navigate("/jobPost2");
+        } else {
+            alert("Please enter in all values.");
+        }
     };
 
     return (
@@ -97,7 +66,7 @@ export default function JobPost() {
                         </Form.Select>
                     </Form.Group>
                     <div className="Spacer"></div>
-                    <Form.Group>
+                    {/* <Form.Group>
                         <Form.Label>Image</Form.Label>
                         <Form.Control
                             type="file"
@@ -109,7 +78,7 @@ export default function JobPost() {
                                 });
                             }}
                         />
-                    </Form.Group>
+                    </Form.Group> */}
                     <div className="Spacer"></div>
                     <Form.Group>
                         <Form.Label>Location</Form.Label>
@@ -145,6 +114,7 @@ export default function JobPost() {
                                     value={info.price}
                                 />
                             </div>
+                            <Form.Text>Minimum $20.00</Form.Text>
                         </Form.Group>
                     </div>
                     <Form.Group>
@@ -163,12 +133,60 @@ export default function JobPost() {
                             }}
                         />
                     </Form.Group>
-
+                    <Button
+                        onClick={() => {
+                            console.log(info);
+                        }}
+                    >
+                        Log info
+                    </Button>
                     <div className="Spacer"></div>
-                    <Button variant="primary" type="submit">
+                    <Button
+                        variant="primary"
+                        onClick={() => {
+                            setButtonVisibility({
+                                display: "block",
+                            });
+                        }}
+                    >
                         Post
                     </Button>
-                    <div></div>
+                    <div style={buttonVisibility}>
+                        {/* <PayPalButton
+                            description={info.description}
+                            price={info.price}
+                        /> */}
+                        <PayPalButtons
+                            style={{
+                                color: "silver",
+                                layout: "horizontal",
+                                height: 48,
+                                tagline: false,
+                                shape: "pill",
+                            }}
+                            createOrder={(data, actions) => {
+                                handleCapture(data, actions);
+                                console.log(handleCapture(data, actions));
+                            }}
+                            onApprove={async (data, actions) => {
+                                const order = await actions.order.capture();
+                                console.log(order);
+                                handleApprove(data.orderID);
+                            }}
+                            onError={(err) => {
+                                setError(err);
+                                console.log("Paypal Error: ", error);
+                            }}
+                            onClick={(data, actions) => {
+                                setPayPalInfo({
+                                    ...payPalInfo,
+                                    description: info.description,
+                                    price: info.price,
+                                });
+                                console.log(info.price, info.description);
+                            }}
+                        />
+                    </div>
                 </Form>
             </div>
         </div>
