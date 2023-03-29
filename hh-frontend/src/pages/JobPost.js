@@ -65,20 +65,7 @@ export default function JobPost() {
                             <option value="miscellaneous">Miscellaneous</option>
                         </Form.Select>
                     </Form.Group>
-                    <div className="Spacer"></div>
-                    {/* <Form.Group>
-                        <Form.Label>Image</Form.Label>
-                        <Form.Control
-                            type="file"
-                            value={info.image}
-                            onChange={(e) => {
-                                setInfo({
-                                    ...info,
-                                    image: e.target.value,
-                                });
-                            }}
-                        />
-                    </Form.Group> */}
+
                     <div className="Spacer"></div>
                     <Form.Group>
                         <Form.Label>Location</Form.Label>
@@ -141,52 +128,9 @@ export default function JobPost() {
                         Log info
                     </Button>
                     <div className="Spacer"></div>
-                    <Button
-                        variant="primary"
-                        onClick={() => {
-                            setButtonVisibility({
-                                display: "block",
-                            });
-                        }}
-                    >
+                    <Button variant="primary" type="submit">
                         Post
                     </Button>
-                    <div style={buttonVisibility}>
-                        {/* <PayPalButton
-                            description={info.description}
-                            price={info.price}
-                        /> */}
-                        <PayPalButtons
-                            style={{
-                                color: "silver",
-                                layout: "horizontal",
-                                height: 48,
-                                tagline: false,
-                                shape: "pill",
-                            }}
-                            createOrder={(data, actions) => {
-                                handleCapture(data, actions);
-                                console.log(handleCapture(data, actions));
-                            }}
-                            onApprove={async (data, actions) => {
-                                const order = await actions.order.capture();
-                                console.log(order);
-                                handleApprove(data.orderID);
-                            }}
-                            onError={(err) => {
-                                setError(err);
-                                console.log("Paypal Error: ", error);
-                            }}
-                            onClick={(data, actions) => {
-                                setPayPalInfo({
-                                    ...payPalInfo,
-                                    description: info.description,
-                                    price: info.price,
-                                });
-                                console.log(info.price, info.description);
-                            }}
-                        />
-                    </div>
                 </Form>
             </div>
         </div>

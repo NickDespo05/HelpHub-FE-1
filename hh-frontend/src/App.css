@@ -240,4 +240,9 @@
     #inProgressHeader {
         top: 10vh;
     }
+    #payForJob {
+        width: 75vw;
+        left: 12.5vw;
+        top: 10vh;
+    }
 }

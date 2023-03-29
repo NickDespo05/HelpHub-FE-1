@@ -23,6 +23,8 @@ function App() {
             options={{
                 "client-id":
                     "AQBmG-WN7ug-AWmWUCbuNj7qq3lZ0lU3g9yExl_NRnNTYQORzeea_aCPDvVZdpobAyCX_TDnj1-todli",
+                currency: "USD",
+                intent: "capture",
             }}
         >
             <JobInfoProvider>
@@ -74,7 +76,7 @@ function App() {
                                         element={<InProgress />}
                                     />
                                     <Route
-                                        path="/postJob2"
+                                        path="/jobPost2"
                                         element={<JobPost2 />}
                                     />
                                 </Routes>
