@@ -11,14 +11,11 @@ export default function InProgress() {
     var timer;
     const navigate = useNavigate();
     const getJob = async () => {
-        currentUser;
-
         if (
             currentUser != undefined &&
             currentUser != "" &&
             currentUser.currentJob != ""
         ) {
-            currentUser.currentJob;
             try {
                 const response = await fetch(
                     `http://localhost:5050/jobs/${currentUser.currentJob}`,
@@ -30,12 +27,9 @@ export default function InProgress() {
                     }
                 );
                 const data = await response.json();
-                data, "data";
+
                 setJob(data);
-                job, "job";
-            } catch (err) {
-                err;
-            }
+            } catch (err) {}
         } else {
         }
     };
@@ -63,7 +57,6 @@ export default function InProgress() {
     }, [currentUser]);
 
     useEffect(() => {
-        job;
         const getPosted = async () => {
             if (job !== {}) {
                 const response = await fetch(
@@ -76,7 +69,7 @@ export default function InProgress() {
                     }
                 );
                 const data = await response.json();
-                data;
+
                 setPostedBy(data[0].name);
             }
         };
@@ -105,7 +98,6 @@ export default function InProgress() {
     };
 
     const handleJobCancel = async () => {
-        job;
         if (job._id != "" && job._id != undefined) {
             const response = await fetch(
                 `http://localhost:5050/memberAccounts/cancelJob/${currentUser._id}/${job._id}`,
@@ -120,14 +112,10 @@ export default function InProgress() {
 
             navigate("/");
         } else {
-            job;
-            currentUser;
             getJob();
         }
     };
 
-    var seconds = 0;
-    var minutes = 0;
     // useEffect(() => {
     //     const timer = setInterval(() => {
     //         (sec)
@@ -169,7 +157,6 @@ export default function InProgress() {
             }),
         });
         const data = await response.json();
-        data;
     };
 
     const handleCompletion = async () => {
@@ -184,11 +171,8 @@ export default function InProgress() {
             }
         );
         const data = await response.json();
-        data;
         if (response.status == 200) {
             navigate("/");
-        } else {
-            response;
         }
     };
 

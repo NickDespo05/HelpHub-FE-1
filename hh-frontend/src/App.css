@@ -245,4 +245,9 @@
         left: 12.5vw;
         top: 10vh;
     }
+    #note {
+        width: 50vw;
+        top: 2vh;
+        right: 5vw;
+    }
 }

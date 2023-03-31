@@ -102,6 +102,14 @@ export default function JobPost() {
                                 />
                             </div>
                             <Form.Text>Minimum $20.00</Form.Text>
+                            <div>
+                                <Form.Text>
+                                    <p id="note">
+                                        NOTE: When the job displays, it will
+                                        show {parseInt(info.price) * 0.9}{" "}
+                                    </p>
+                                </Form.Text>
+                            </div>
                         </Form.Group>
                     </div>
                     <Form.Group>
@@ -120,13 +128,7 @@ export default function JobPost() {
                             }}
                         />
                     </Form.Group>
-                    <Button
-                        onClick={() => {
-                            console.log(info);
-                        }}
-                    >
-                        Log info
-                    </Button>
+
                     <div className="Spacer"></div>
                     <Button variant="primary" type="submit">
                         Post

@@ -31,16 +31,13 @@ export default function JobPost2() {
     };
 
     const handleApprove = async (order) => {
-        const response = await fetch(
-            `http://localhost:5050/my-server/capture-paypal-order`,
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ orderID: order }),
-            }
-        );
+        const response = await fetch(`http://localhost:5050/logPayPalInfo`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ order: order }),
+        });
         if (response.status == 200) {
             setPaidFor(true);
             let response2 = await fetch(
@@ -160,7 +157,8 @@ export default function JobPost2() {
                     }}
                     onApprove={async (data, actions) => {
                         const order = await actions.order.capture();
-                        console.log(order);
+                        console.log(data, " : data");
+                        console.log(order, " : order");
                         handleApprove(data.orderID);
                         handleSubmit();
                     }}

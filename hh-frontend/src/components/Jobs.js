@@ -117,6 +117,9 @@ export default function Jobs() {
                             <Card>
                                 <HandleName job={props.job} />
                                 <Card.Text>{props.job.description}</Card.Text>
+                                <Card.Text>
+                                    Price: {parseInt(props.job.price) * 0.9}
+                                </Card.Text>
                                 <Button
                                     onClick={(e) => {
                                         handleProviderRequest(e, props.i);
