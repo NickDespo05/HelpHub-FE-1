@@ -14,29 +14,31 @@ export default function JobPost2() {
     const navigate = useNavigate();
     const price = jobInfo.price;
     const description = jobInfo.description;
-    const handleCapture = (data, actions) => {
-        console.log(price, description);
-        const response = actions.order.create({
-            purchase_units: [
-                {
-                    description: description,
-                    amount: {
-                        value: price,
-                    },
-                },
-            ],
-        });
-        console.log(response);
-        return response;
-    };
+    // const handleCapture = (data, actions) => {
+    //     console.log(price, description);
+    //     const response = actions.order.create({
+    //         purchase_units: [
+    //             {
+    //                 description: description,
+    //                 amount: {
+    //                     value: price,
+    //                 },
+    //             },
+    //         ],
+    //     });
+    //     console.log(response);
+    //     return response;
+    // };
 
     const handleApprove = async (order) => {
+        console.log(order);
+        let orderObj = order;
         const response = await fetch(`http://localhost:5050/logPayPalInfo`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ order: order }),
+            body: JSON.stringify({ order: orderObj }),
         });
         if (response.status == 200) {
             setPaidFor(true);
@@ -159,7 +161,7 @@ export default function JobPost2() {
                         const order = await actions.order.capture();
                         console.log(data, " : data");
                         console.log(order, " : order");
-                        handleApprove(data.orderID);
+                        handleApprove(order);
                         handleSubmit();
                     }}
                     onError={(err) => {

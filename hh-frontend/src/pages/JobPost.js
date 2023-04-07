@@ -36,7 +36,7 @@ export default function JobPost() {
     return (
         <div>
             <div className="Spacer2"></div>
-            <h1>Post a Job</h1>
+            <h1 id="postJobTitle">Post a Job</h1>
             <div className="jobPostForm">
                 <Form
                     onSubmit={(e) => {
@@ -79,7 +79,9 @@ export default function JobPost() {
                                 });
                             }}
                         />
-                        <Form.Text>The specific address of the Job.</Form.Text>
+                        <Form.Text>
+                            The specific address of the Job with the town.
+                        </Form.Text>
                     </Form.Group>
                     <div className="Spacer"></div>
                     <div id="priceInput">
@@ -112,7 +114,7 @@ export default function JobPost() {
                             </div>
                         </Form.Group>
                     </div>
-                    <Form.Group>
+                    <Form.Group id="descriptionInput">
                         <Form.Label>Description</Form.Label>
                         <Form.Control
                             value={info.description}
@@ -129,7 +131,6 @@ export default function JobPost() {
                         />
                     </Form.Group>
 
-                    <div className="Spacer"></div>
                     <Button variant="primary" type="submit">
                         Post
                     </Button>

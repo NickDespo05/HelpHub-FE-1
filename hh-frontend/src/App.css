@@ -79,10 +79,14 @@
         transform: translate(-50%, -50%);
     }
     .jobPostForm {
+        top: 5vh;
         width: 75%;
         position: relative;
         left: 50%;
         transform: translate(-50%, -0%);
+    }
+    #postJobTitle {
+        top: 5vh;
     }
     #searchBar {
         display: inline-flex;
@@ -212,7 +216,7 @@
         left: 15vw;
     }
     #consumerJobsTitle {
-        left: 7vw;
+        left: 2vw;
     }
     #profileDiv {
         position: relative;
@@ -249,5 +253,21 @@
         width: 50vw;
         top: 2vh;
         right: 5vw;
+    }
+    .consumerJobs {
+        right: 5vw;
+    }
+    #descriptionInput {
+        bottom: 5vh;
+    }
+    #footer {
+        position: fixed;
+        left: 25vw;
+        top: 85vh;
+        width: 75vw;
+        text-align: center;
+    }
+    #footerNavBar {
+        width: 50vw;
     }
 }

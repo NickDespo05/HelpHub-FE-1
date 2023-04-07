@@ -102,11 +102,12 @@ export default function NavbarHelpHub() {
 
     return (
         <div className="navbarContainer">
-            <Navbar bg="bg-*" md="auto">
+            <Navbar bg="light" md="auto" id="navBar1">
                 <Container sm={8}>
                     <UserRender />
                 </Container>
             </Navbar>
+            <hr id="navBarLine" size="8" />
         </div>
     );
 }

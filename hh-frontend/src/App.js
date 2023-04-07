@@ -16,6 +16,7 @@ import InProgress from "./pages/InProgress";
 import { useEffect } from "react";
 import JobInfoProvider from "./context/JobInfo";
 import JobPost2 from "./pages/JobPost2";
+import Footer from "./components/Footer";
 
 function App() {
     return (
@@ -81,6 +82,7 @@ function App() {
                                     />
                                 </Routes>
                             </BrowserRouter>
+                            <Footer />
                         </div>
                     </ThemeProvider>
                 </CurrentAccountProvider>

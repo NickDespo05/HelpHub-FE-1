@@ -205,7 +205,7 @@ export default function CurrentUserJobs(props) {
     }
     return (
         <div className="consumerJobs">
-            <h1 id="consumerJobsTitle">Your Posted jobs</h1>
+            <h1 id="consumerJobsTitle">Your Posted Jobs</h1>
             <RenderJobs />
         </div>
     );
