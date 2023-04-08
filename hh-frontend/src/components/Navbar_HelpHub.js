@@ -37,7 +37,7 @@ export default function NavbarHelpHub() {
         } else {
             if (currentUser.accountType == "provider") {
                 return (
-                    <div className="loggedIn">
+                    <div className="loggedInProvider">
                         <Navbar.Brand href="/" className="logo">
                             <img
                                 src={logo}
@@ -107,6 +107,11 @@ export default function NavbarHelpHub() {
                     <UserRender />
                 </Container>
             </Navbar>
+            <Nav justify={true}>
+                <Nav.Link href="https://despositond.wixsite.com/helphub-site">
+                    About Us and How HelpHub Works
+                </Nav.Link>
+            </Nav>
             <hr id="navBarLine" size="8" />
         </div>
     );

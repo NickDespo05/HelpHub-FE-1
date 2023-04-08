@@ -132,22 +132,13 @@ export default function Jobs() {
                     </div>
                 </Col>
             );
-        } else {
-            setNumJobs(0);
-            return (
-                <div id="noJobsDiv">
-                    <h1 id="noJobsTextHome">
-                        No jobs found (Try changing your source)
-                    </h1>
-                </div>
-            );
         }
     };
 
     const DisplayJobs = () => {
         if (jobs.length > 0) {
             return jobs.map((job, i) => <HandleJob job={job} i={i} />);
-        } else {
+        } else if (jobs.length == 0) {
             return (
                 <div>
                     <h1 id="noJobsTextHome">

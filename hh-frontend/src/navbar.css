@@ -17,6 +17,7 @@
         left: 0vw;
         width: 90vw;
         height: 3vh;
+        z-index: 99;
     }
     .logoPic {
         width: 40%;
@@ -107,7 +108,9 @@
         width: 25vw;
         bottom: 7vh;
     }
-    #userNameTextPro {
+    .loggedInProvider {
+        top: 6vh;
+        left: 5vw;
     }
     #logoNotLogged {
         right: 28vw;

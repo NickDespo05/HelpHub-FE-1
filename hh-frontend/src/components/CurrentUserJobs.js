@@ -207,6 +207,7 @@ export default function CurrentUserJobs(props) {
         <div className="consumerJobs">
             <h1 id="consumerJobsTitle">Your Posted Jobs</h1>
             <RenderJobs />
+            <div className="Spacer"></div>
         </div>
     );
 }

@@ -23,7 +23,6 @@ export default function HomePage() {
             );
             let data = await response2.json();
             setCurrentUser(data);
-            data;
         };
         logIn();
     }, []);
@@ -47,11 +46,7 @@ export default function HomePage() {
             );
         } else {
             if (currentUser.accountType == "provider") {
-                return (
-                    <div>
-                        <Jobs />
-                    </div>
-                );
+                return <Jobs />;
             } else {
                 return (
                     <div>
@@ -61,11 +56,5 @@ export default function HomePage() {
             }
         }
     };
-    return (
-        <div>
-            <div className="jobsDiv">
-                <HandleDisplay />
-            </div>
-        </div>
-    );
+    return <HandleDisplay />;
 }

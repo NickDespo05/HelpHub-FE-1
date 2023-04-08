@@ -45,6 +45,7 @@ function App() {
                     >
                         <div className="App">
                             <NavbarHelpHub />
+                            {/* <Footer /> */}
                             <BrowserRouter>
                                 <Routes>
                                     <Route path="/" element={<HomePage />} />
@@ -82,7 +83,6 @@ function App() {
                                     />
                                 </Routes>
                             </BrowserRouter>
-                            <Footer />
                         </div>
                     </ThemeProvider>
                 </CurrentAccountProvider>

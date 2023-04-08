@@ -42,7 +42,8 @@
 @media only screen and (min-width: 200px) {
     .jobsContainer {
         position: relative;
-        left: -5vw;
+        top: 10vh;
+        left: 20vw;
         margin-bottom: 3vh;
         margin-top: 2vh;
         display: block;
@@ -106,7 +107,7 @@
     }
     .categorySelect {
         position: relative;
-        left: 35vw;
+        left: 12vw;
         top: -2vh;
         width: 50%;
     }
@@ -216,7 +217,7 @@
         left: 15vw;
     }
     #consumerJobsTitle {
-        left: 2vw;
+        right: 10vw;
     }
     #profileDiv {
         position: relative;
@@ -255,19 +256,13 @@
         right: 5vw;
     }
     .consumerJobs {
-        right: 5vw;
+        left: 10vw;
+        top: 10vh;
     }
     #descriptionInput {
         bottom: 5vh;
     }
-    #footer {
-        position: fixed;
-        left: 25vw;
-        top: 85vh;
-        width: 75vw;
-        text-align: center;
-    }
     #footerNavBar {
-        width: 50vw;
+        top: 6vh;
     }
 }
