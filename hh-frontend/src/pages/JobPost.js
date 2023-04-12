@@ -17,7 +17,7 @@ export default function JobPost() {
         address: "",
         state: "",
         price: "",
-        extraInfo: {},
+        extraInfo: null,
     });
 
     useEffect(() => {
@@ -68,13 +68,22 @@ export default function JobPost() {
     const { setCurrentUser } = useContext(CurrentAccount);
     const [paidFor, setPaidFor] = useState(false);
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    useEffect(() => {
         setInfo({
             ...info,
             extraInfo: extraInfo,
         });
-        console.log(extraInfo);
+    }, [extraInfo]);
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        // var extras = extraInfo;
+        // console.log(extras);
+        // setInfo({
+        //     ...info,
+        //     extraInfo: extras,
+        // });
+        console.log(info);
         if (Object.values(info).indexOf("" > -1)) {
             setJobInfo(info);
             navigate("/jobPost2");
@@ -85,7 +94,7 @@ export default function JobPost() {
 
     if (info.category == "landscaping") {
         return (
-            <div>
+            <div className="divJobPost">
                 <div className="Spacer2"></div>
                 <h1 id="postJobTitle">Post a Job</h1>
                 <div className="jobPostForm">
@@ -262,7 +271,7 @@ export default function JobPost() {
         );
     } else if (info.category == "homeCleaning") {
         return (
-            <div>
+            <div className="divJobPost">
                 <div className="Spacer2"></div>
                 <h1 id="postJobTitle">Post a Job</h1>
                 <div className="jobPostForm">
@@ -432,7 +441,7 @@ export default function JobPost() {
         );
     } else if (info.category == "petCare") {
         return (
-            <div>
+            <div className="divJobPost">
                 <div className="Spacer2"></div>
                 <h1 id="postJobTitle">Post a Job</h1>
                 <div className="jobPostForm">
@@ -607,7 +616,7 @@ export default function JobPost() {
         );
     } else if (info.category == "movingHelp") {
         return (
-            <div>
+            <div className="divJobPost">
                 <div className="Spacer2"></div>
                 <h1 id="postJobTitle">Post a Job</h1>
                 <div className="jobPostForm">

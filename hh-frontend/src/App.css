@@ -268,4 +268,12 @@
     .miniSpace {
         height: 2.5vh;
     }
+    #initialCategory {
+        top: 20vh;
+        width: 75vw;
+        left: 12.5vw;
+    }
+    .divJobPost {
+        top: 7vh;
+    }
 }

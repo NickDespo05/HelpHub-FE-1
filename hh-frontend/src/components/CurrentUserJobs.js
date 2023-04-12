@@ -39,6 +39,75 @@ export default function CurrentUserJobs(props) {
         getRequests();
     }, [currentUser]);
 
+    const HandleExtras = (props) => {
+        if (props.job.extraInfo) {
+            switch (props.job.category) {
+                case "petCare":
+                    return (
+                        <ListGroup>
+                            <ListGroup.Item>
+                                Pet: {props.job.extraInfo.pet}
+                            </ListGroup.Item>
+                            <ListGroup.Item>
+                                Weight: {props.job.extraInfo.petWeight} lbs
+                            </ListGroup.Item>
+                            <ListGroup.Item>
+                                Temper {props.job.extraInfo.temper}
+                            </ListGroup.Item>
+                            <ListGroup.Item>
+                                Equipment{props.job.extraInfo.equipment}
+                            </ListGroup.Item>
+                        </ListGroup>
+                    );
+                case "landscaping":
+                    return (
+                        <ListGroup>
+                            <ListGroup.Item>
+                                Estimated Time:{" "}
+                                {props.job.extraInfo.estimatedTime}
+                            </ListGroup.Item>
+                            <ListGroup.Item>
+                                Home Type: {props.job.extraInfo.homeType} lbs
+                            </ListGroup.Item>
+                            <ListGroup.Item>
+                                Equipment{props.job.extraInfo.equipment}
+                            </ListGroup.Item>
+                        </ListGroup>
+                    );
+                case "homeCleaning":
+                    return (
+                        <ListGroup>
+                            <ListGroup.Item>
+                                Estimated Time:{" "}
+                                {props.job.extraInfo.estimatedTime}
+                            </ListGroup.Item>
+                            <ListGroup.Item>
+                                Home Type: {props.job.extraInfo.numOfRooms} lbs
+                            </ListGroup.Item>
+                            <ListGroup.Item>
+                                Sq Ft: {props.job.extraInfo.numSqFt}
+                            </ListGroup.Item>
+                            <ListGroup.Item>
+                                Equipment{props.job.extraInfo.equipment}
+                            </ListGroup.Item>
+                        </ListGroup>
+                    );
+                case "movingHelp":
+                    return (
+                        <ListGroup>
+                            <ListGroup.Item>
+                                Estimated Time:{" "}
+                                {props.job.extraInfo.estimatedTime}
+                            </ListGroup.Item>
+                            <ListGroup.Item>
+                                Max Item Weight: {props.job.extraInfo.maxWeight}
+                            </ListGroup.Item>
+                        </ListGroup>
+                    );
+            }
+        }
+    };
+
     const HandleName = (props) => {
         if (props.type == "title") {
             switch (props.category) {
@@ -182,6 +251,7 @@ export default function CurrentUserJobs(props) {
                                     </Nav.Item>
                                 </Nav>
                             </Card.Text>
+                            <HandleExtras job={job} />
                         </Card>
                     </div>
                 ));
