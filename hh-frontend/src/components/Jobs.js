@@ -1,6 +1,14 @@
 import { CurrentAccount } from "../context/CurrentAccount";
 import React, { useEffect, useState, useContext } from "react";
-import { Container, Card, Row, Col, Form, Button } from "react-bootstrap";
+import {
+    Container,
+    Card,
+    Row,
+    Col,
+    Form,
+    Button,
+    ListGroup,
+} from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 export default function Jobs() {
@@ -120,6 +128,7 @@ export default function Jobs() {
                                 <Card.Text>
                                     Price: {parseInt(props.job.price) * 0.9}
                                 </Card.Text>
+                                <HandleExtras job={props.job} />
                                 <Button
                                     onClick={(e) => {
                                         handleProviderRequest(e, props.i);
@@ -132,6 +141,75 @@ export default function Jobs() {
                     </div>
                 </Col>
             );
+        }
+    };
+
+    const HandleExtras = (props) => {
+        if (props.job.extraInfo) {
+            switch (props.job.category) {
+                case "petCare":
+                    return (
+                        <ListGroup>
+                            <ListGroup.Item>
+                                Pet: {props.job.extraInfo.pet}
+                            </ListGroup.Item>
+                            <ListGroup.Item>
+                                Weight: {props.job.extraInfo.petWeight} lbs
+                            </ListGroup.Item>
+                            <ListGroup.Item>
+                                Temper {props.job.extraInfo.temper}
+                            </ListGroup.Item>
+                            <ListGroup.Item>
+                                Equipment{props.job.extraInfo.equipment}
+                            </ListGroup.Item>
+                        </ListGroup>
+                    );
+                case "landscaping":
+                    return (
+                        <ListGroup>
+                            <ListGroup.Item>
+                                Estimated Time:{" "}
+                                {props.job.extraInfo.estimatedTime}
+                            </ListGroup.Item>
+                            <ListGroup.Item>
+                                Home Type: {props.job.extraInfo.homeType} lbs
+                            </ListGroup.Item>
+                            <ListGroup.Item>
+                                Equipment{props.job.extraInfo.equipment}
+                            </ListGroup.Item>
+                        </ListGroup>
+                    );
+                case "homeCleaning":
+                    return (
+                        <ListGroup>
+                            <ListGroup.Item>
+                                Estimated Time:{" "}
+                                {props.job.extraInfo.estimatedTime}
+                            </ListGroup.Item>
+                            <ListGroup.Item>
+                                Home Type: {props.job.extraInfo.numOfRooms} lbs
+                            </ListGroup.Item>
+                            <ListGroup.Item>
+                                Sq Ft: {props.job.extraInfo.numSqFt}
+                            </ListGroup.Item>
+                            <ListGroup.Item>
+                                Equipment{props.job.extraInfo.equipment}
+                            </ListGroup.Item>
+                        </ListGroup>
+                    );
+                case "movingHelp":
+                    return (
+                        <ListGroup>
+                            <ListGroup.Item>
+                                Estimated Time:{" "}
+                                {props.job.extraInfo.estimatedTime}
+                            </ListGroup.Item>
+                            <ListGroup.Item>
+                                Max Item Weight: {props.job.extraInfo.maxWeight}
+                            </ListGroup.Item>
+                        </ListGroup>
+                    );
+            }
         }
     };
 

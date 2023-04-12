@@ -11,6 +11,7 @@ export default function JobInfoProvider({ children }) {
         image: "",
         state: "",
         price: "",
+        extraInfo: {},
     });
 
     return (

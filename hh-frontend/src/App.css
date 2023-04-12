@@ -265,4 +265,7 @@
     #footerNavBar {
         top: 6vh;
     }
+    .miniSpace {
+        height: 2.5vh;
+    }
 }
